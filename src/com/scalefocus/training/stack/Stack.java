@@ -10,7 +10,7 @@ public class Stack implements MyQueue {
 
     private Node top;
 
-    private Node theFirst;
+    private Node bottom;
 
     private int size = 0;
 
@@ -23,12 +23,11 @@ public class Stack implements MyQueue {
     public void push(Object element) {
         Node node = new Node(element, null);
 
-        if (theFirst == null) {
-            theFirst = node;
+        if (bottom == null) {
+            bottom = node;
             top = node;
         } else {
-            Node currentNode = top;
-            currentNode.setNext(node);
+            node.setNext(top);
             top = node;
         }
         ++size;
@@ -41,15 +40,17 @@ public class Stack implements MyQueue {
      */
     @Override
     public Object poll() {
-        Node currentNode = theFirst;
-
-        while (currentNode.getNext().getNext() != null) {
-            currentNode = currentNode.getNext();
+        if(top != null) {
+            Object value = top.getValue();
+            if (top.getNext() != null) {
+                top = top.getNext();
+            } else {
+                top = null;
+            }
+            -- size;
+            return value;
         }
-        currentNode.setNext(null);
-        top = currentNode;
-        --size;
-        return top.getValue();
+        return null;
     }
 
     /**
@@ -59,7 +60,7 @@ public class Stack implements MyQueue {
      */
     @Override
     public Object peek() {
-        return top.getValue();
+        return top != null ? top.getValue() : null;
     }
 
     /**
@@ -77,7 +78,7 @@ public class Stack implements MyQueue {
      */
     @Override
     public void print() {
-        Node currentNode = theFirst;
+        Node currentNode = bottom;
 
         while (currentNode.getNext() != null) {
             System.out.print(currentNode.getValue() + " ");

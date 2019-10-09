@@ -42,10 +42,17 @@ public class Queue implements MyQueue {
      * @return - the new head of the queue or null if the queue is empty.
      */
     public Object poll() {
-        head = head.getNext();
-        --size;
-
-        return head.getValue();
+        if (head != null) {
+            Object target = head.getValue();
+            if (head.getNext() != null) {
+                head = head.getNext();
+            } else {
+                head = null;
+            }
+            --size;
+            return target;
+        }
+        return null;
     }
 
     /**
@@ -54,7 +61,7 @@ public class Queue implements MyQueue {
      * @return - the head of the queue or null if the queue is empty.
      */
     public Object peek() {
-        return head;
+        return head != null ? head.getValue() : null;
     }
 
     /**

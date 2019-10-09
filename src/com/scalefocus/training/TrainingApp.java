@@ -6,23 +6,19 @@ import com.scalefocus.training.stack.Stack;
 public class TrainingApp {
 
     public static void main(String[] args) {
-        Stack stack = new Stack();
+        Stack queue = new Stack();
 
-        stack.push("a");
-        stack.push("b");
-        stack.push("c");
-        stack.push("d");
-        stack.push("e");
-        stack.push("f");
+        queue.push("a");
+        queue.push("b");
+        queue.push("c");
 
-        stack.poll();
-        stack.poll();
-        stack.poll();
-        stack.poll();
-
-        stack.push("g");
-        stack.push("h");
-
-        System.out.println(stack.peek());
+        queue.poll();
+        queue.poll();
+        queue.poll();
+        queue.poll();
+        queue.poll();
+        queue.poll();
+        queue.peek();
+        System.out.println(queue.size());
     }
 }
