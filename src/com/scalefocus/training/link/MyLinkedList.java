@@ -147,7 +147,6 @@ public class MyLinkedList implements MyList {
         Node currentNode = head;
 
         while (currentNode.getNext() != null) {
-
             System.out.println(currentNode.getValue());
             currentNode = currentNode.getNext();
         }

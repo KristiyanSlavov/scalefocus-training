@@ -1,22 +1,28 @@
 package com.scalefocus.training;
 
-import com.scalefocus.training.linkedhashmap.MyLinkedHashMap;
+import com.scalefocus.training.queue.Queue;
+import com.scalefocus.training.stack.Stack;
 
 public class TrainingApp {
 
     public static void main(String[] args) {
+        Stack stack = new Stack();
 
-        MyLinkedHashMap<String, String> myMap = new MyLinkedHashMap<String, String>();
-        myMap.put("Ivan", "1111111111111");
-        myMap.put("Dimitar", "22222222222");
-        myMap.put("Peter", "33333333333");
-        myMap.put("Kostadin", "44444444444");
-        myMap.put("Stoyan", "5555555555555");
-        myMap.put("Ivaylo", "666666666666");
-        myMap.put("Pavel", "7777777777777777");
-        myMap.put("Bozidhar", "8888888888888");
-        myMap.put("Anthony", "999999999999999");
-        myMap.put("Georgi", "10");
-        myMap.print();
+        stack.push("a");
+        stack.push("b");
+        stack.push("c");
+        stack.push("d");
+        stack.push("e");
+        stack.push("f");
+
+        stack.poll();
+        stack.poll();
+        stack.poll();
+        stack.poll();
+
+        stack.push("g");
+        stack.push("h");
+
+        System.out.println(stack.peek());
     }
 }

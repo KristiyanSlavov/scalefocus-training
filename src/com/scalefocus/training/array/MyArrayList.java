@@ -3,6 +3,9 @@ package com.scalefocus.training.array;
 import com.scalefocus.training.MyList;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 public class MyArrayList implements MyList {
 
@@ -35,7 +38,7 @@ public class MyArrayList implements MyList {
     }
 
     /**
-     *This method adds an element in the array.
+     * This method adds an element in the array.
      *
      * @param data - the value that will be stored in the array
      */
@@ -72,7 +75,7 @@ public class MyArrayList implements MyList {
      * If index is larger than the size of the array an {@link ArrayIndexOutOfBoundsException} will be thrown.
      *
      * @param index - the index where an element will be insert
-     * @param data - the value that will be stored on the specified index
+     * @param data  - the value that will be stored on the specified index
      */
     @Override
     public void insertAt(int index, Object data) {
@@ -129,7 +132,6 @@ public class MyArrayList implements MyList {
 
     /**
      * This method increases the array's capacity by two.
-     *
      */
     private void increaseMyStoreCapacity() {
         myStore = Arrays.copyOf(myStore, myStore.length * 2);
