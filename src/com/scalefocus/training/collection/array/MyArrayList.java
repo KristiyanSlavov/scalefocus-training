@@ -1,11 +1,8 @@
-package com.scalefocus.training.array;
+package com.scalefocus.training.collection.array;
 
-import com.scalefocus.training.MyList;
+import com.scalefocus.training.collection.common.MyList;
 
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 
 public class MyArrayList implements MyList {
 

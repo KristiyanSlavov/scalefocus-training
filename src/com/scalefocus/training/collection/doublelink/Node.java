@@ -1,4 +1,4 @@
-package com.scalefocus.training.doublelink;
+package com.scalefocus.training.collection.doublelink;
 
 /**
  * @author Kristiyan SLavov

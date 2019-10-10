@@ -1,6 +1,6 @@
-package com.scalefocus.training.linkedhashmap;
+package com.scalefocus.training.collection.linkedhashmap;
 
-import com.scalefocus.training.MyMap;
+import com.scalefocus.training.collection.common.MyMap;
 
 /**
  * @author Kristiyan SLavov

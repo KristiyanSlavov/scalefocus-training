@@ -1,7 +1,7 @@
-package com.scalefocus.training.stack;
+package com.scalefocus.training.collection.stack;
 
-import com.scalefocus.training.MyQueue;
-import com.scalefocus.training.link.Node;
+import com.scalefocus.training.collection.common.MyQueue;
+import com.scalefocus.training.collection.common.Node;
 
 /**
  * @author Kristiyan SLavov
@@ -21,7 +21,7 @@ public class Stack implements MyQueue {
      */
     @Override
     public void push(Object element) {
-        Node node = new Node(element, null);
+        Node node = new Node(element);
 
         if (bottom == null) {
             bottom = node;
@@ -46,6 +46,7 @@ public class Stack implements MyQueue {
                 top = top.getNext();
             } else {
                 top = null;
+                bottom = null;
             }
             -- size;
             return value;

@@ -1,10 +1,7 @@
-package com.scalefocus.training.queue;
+package com.scalefocus.training.collection.queue;
 
-import com.scalefocus.training.MyList;
-import com.scalefocus.training.MyQueue;
-import com.scalefocus.training.link.Node;
-
-import java.util.Arrays;
+import com.scalefocus.training.collection.common.MyQueue;
+import com.scalefocus.training.collection.common.Node;
 
 /**
  * @author Kristiyan SLavov
@@ -23,7 +20,7 @@ public class Queue implements MyQueue {
      * @param element - the specified element that will be inserted into the queue.
      */
     public void push(Object element) {
-        Node node = new Node(element, null);
+        Node node = new Node(element);
 
         if (head == null) {
             head = node;
@@ -48,6 +45,7 @@ public class Queue implements MyQueue {
                 head = head.getNext();
             } else {
                 head = null;
+                tail = null;
             }
             --size;
             return target;

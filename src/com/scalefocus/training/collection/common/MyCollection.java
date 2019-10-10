@@ -1,4 +1,4 @@
-package com.scalefocus.training;
+package com.scalefocus.training.collection.common;
 
 /**
  * @author Kristiyan SLavov

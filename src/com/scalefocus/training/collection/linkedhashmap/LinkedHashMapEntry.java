@@ -1,4 +1,4 @@
-package com.scalefocus.training.linkedhashmap;
+package com.scalefocus.training.collection.linkedhashmap;
 
 import java.util.Objects;
 

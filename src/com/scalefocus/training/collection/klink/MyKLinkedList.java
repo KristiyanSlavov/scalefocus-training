@@ -1,25 +1,21 @@
-package com.scalefocus.training.klink;
+package com.scalefocus.training.collection.klink;
 
-import com.scalefocus.training.MyCollection;
-import com.scalefocus.training.MyList;
-
-import java.util.Collection;
-import java.util.Objects;
+import com.scalefocus.training.collection.common.MyCollection;
 
 /**
  * @author Kristiyan SLavov
  */
 public class MyKLinkedList implements MyCollection {
 
-    private Node head;
+    private KNode head;
 
-    private Node tail;
+    private KNode tail;
+
+    private KNode kNode;
 
     private int size = 0;
 
     private final int k;
-
-    private Node kNode;
 
     public MyKLinkedList(int k) {
         if (k > 1) {
@@ -38,8 +34,8 @@ public class MyKLinkedList implements MyCollection {
      */
     @Override
     public Object get(int position) {
-        Node target;
-        Node currentNode;
+        KNode target;
+        KNode currentNode;
         if (position >= 1 && position <= size) {
 
             if (position == 1) {
@@ -80,7 +76,7 @@ public class MyKLinkedList implements MyCollection {
      */
     @Override
     public void add(Object data) {
-        Node node = new Node(data);
+        KNode node = new KNode(data);
 
         if (head == null) {
             head = node;
@@ -103,8 +99,8 @@ public class MyKLinkedList implements MyCollection {
      */
     @Override
     public Object remove(int position) {
-        Node removed = null;
-        Node current = head;
+        KNode removed = null;
+        KNode current = head;
 
         if (position >= 1 && position <= size) {
 
@@ -147,7 +143,7 @@ public class MyKLinkedList implements MyCollection {
      * @param currentNode - the starting node
      * @param position    - the position of the starting node
      */
-    private void setKNodes(Node currentNode, int position) {
+    private void setKNodes(KNode currentNode, int position) {
         if (position % k == 0) {
             if (position == k) {
                 kNode = currentNode;
@@ -163,7 +159,7 @@ public class MyKLinkedList implements MyCollection {
      */
     @Override
     public void print() {
-        Node cur = head;
+        KNode cur = head;
         while (cur != null) {
             System.out.println(cur + "::" + cur.getValue() + " -> " + cur.getkLink());
             cur = cur.getNext();

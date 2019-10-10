@@ -1,8 +1,6 @@
-package com.scalefocus.training.hashmap;
+package com.scalefocus.training.collection.hashmap;
 
-import com.scalefocus.training.MyMap;
-
-import java.util.Arrays;
+import com.scalefocus.training.collection.common.MyMap;
 
 /**
  * @author Kristiyan SLavov

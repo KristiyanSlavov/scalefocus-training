@@ -1,4 +1,4 @@
-package com.scalefocus.training.hashmap;
+package com.scalefocus.training.collection.hashmap;
 
 import java.util.Objects;
 

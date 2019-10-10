@@ -1,24 +1,22 @@
 package com.scalefocus.training;
 
-import com.scalefocus.training.queue.Queue;
-import com.scalefocus.training.stack.Stack;
+import com.scalefocus.training.collection.queue.Queue;
+import com.scalefocus.training.collection.stack.Stack;
 
 public class TrainingApp {
 
     public static void main(String[] args) {
-        Stack queue = new Stack();
+        Stack stack = new Stack();
 
-        queue.push("a");
-        queue.push("b");
-        queue.push("c");
+        stack.push("a");
+        stack.push("b");
+        stack.push("c");
+        stack.push("d");
 
-        queue.poll();
-        queue.poll();
-        queue.poll();
-        queue.poll();
-        queue.poll();
-        queue.poll();
-        queue.peek();
-        System.out.println(queue.size());
+        stack.poll();
+        stack.poll();
+        stack.poll();
+        stack.poll();
+        System.out.println(stack.size());
     }
 }

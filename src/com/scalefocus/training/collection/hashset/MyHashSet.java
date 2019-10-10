@@ -1,6 +1,6 @@
-package com.scalefocus.training.hashset;
+package com.scalefocus.training.collection.hashset;
 
-import com.scalefocus.training.hashmap.MyHashMap;
+import com.scalefocus.training.collection.hashmap.MyHashMap;
 
 /**
  * @author Kristiyan SLavov

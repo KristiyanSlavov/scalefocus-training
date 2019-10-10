@@ -1,14 +1,13 @@
-package com.scalefocus.training.link;
+package com.scalefocus.training.collection.common;
 
 public class Node {
 
-    private final Object value;
+    private Object value;
 
     private Node next;
 
-    public Node(Object value, Node next) {
+    public Node(Object value) {
         this.value = value;
-        this.next = next;
     }
 
     public Object getValue() {

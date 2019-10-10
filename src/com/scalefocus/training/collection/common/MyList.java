@@ -1,4 +1,4 @@
-package com.scalefocus.training;
+package com.scalefocus.training.collection.common;
 
 public interface MyList extends MyCollection {
 
