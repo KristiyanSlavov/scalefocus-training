@@ -12,11 +12,11 @@ public class MyHashSet<K> {
     private static final Object DUMMY_VAL = new Object();
 
     public MyHashSet() {
-        map = new MyHashMap<K, Object>();
+        map = new MyHashMap<>();
     }
 
     public MyHashSet(int initialCapacity) {
-        map = new MyHashMap<K, Object>(initialCapacity);
+        map = new MyHashMap<>(initialCapacity);
     }
 
     /**

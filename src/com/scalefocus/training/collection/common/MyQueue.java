@@ -3,13 +3,13 @@ package com.scalefocus.training.collection.common;
 /**
  * @author Kristiyan SLavov
  */
-public interface MyQueue {
+public interface MyQueue<T> {
 
-    void push(Object element);
+    void push(T element);
 
-    Object poll();
+    T poll();
 
-    Object peek();
+    T peek();
 
     int size();
 

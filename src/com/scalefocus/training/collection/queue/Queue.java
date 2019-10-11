@@ -1,16 +1,17 @@
 package com.scalefocus.training.collection.queue;
 
+import com.scalefocus.training.collection.common.BaseNode;
 import com.scalefocus.training.collection.common.MyQueue;
 import com.scalefocus.training.collection.common.Node;
 
 /**
  * @author Kristiyan SLavov
  */
-public class Queue implements MyQueue {
+public class Queue<T> implements MyQueue<T> {
 
-    private Node tail;
+    private BaseNode<T> tail;
 
-    private Node head;
+    private BaseNode<T> head;
 
     private int size = 0;
 
@@ -19,14 +20,14 @@ public class Queue implements MyQueue {
      *
      * @param element - the specified element that will be inserted into the queue.
      */
-    public void push(Object element) {
-        Node node = new Node(element);
+    public void push(T element) {
+        BaseNode<T> node = new BaseNode<>(element);
 
         if (head == null) {
             head = node;
             tail = node;
         } else {
-            Node currentNode = tail;
+            BaseNode<T> currentNode = tail;
             currentNode.setNext(node);
             tail = node;
         }
@@ -38,9 +39,9 @@ public class Queue implements MyQueue {
      *
      * @return - the new head of the queue or null if the queue is empty.
      */
-    public Object poll() {
+    public T poll() {
         if (head != null) {
-            Object target = head.getValue();
+            T target = head.getValue();
             if (head.getNext() != null) {
                 head = head.getNext();
             } else {
@@ -58,7 +59,7 @@ public class Queue implements MyQueue {
      *
      * @return - the head of the queue or null if the queue is empty.
      */
-    public Object peek() {
+    public T peek() {
         return head != null ? head.getValue() : null;
     }
 

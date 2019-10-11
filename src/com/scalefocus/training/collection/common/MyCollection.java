@@ -3,13 +3,13 @@ package com.scalefocus.training.collection.common;
 /**
  * @author Kristiyan SLavov
  */
-public interface MyCollection {
+public interface MyCollection<T> {
 
-    Object get(int index);
+    T get(int index);
 
-    void add(Object data);
+    void add(T data);
 
-    Object remove(int index);
+    T remove(int index);
 
     void print();
 

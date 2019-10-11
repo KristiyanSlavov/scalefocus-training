@@ -2,10 +2,13 @@ package com.scalefocus.training.collection.hashmap;
 
 import com.scalefocus.training.collection.common.MyMap;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 /**
  * @author Kristiyan SLavov
  */
-public class MyHashMap<K, V>  implements MyMap<K, V> {
+public class MyHashMap<K, V> implements MyMap<K, V> {
 
     private HashMapEntry<K, V>[] buckets;
 
@@ -15,8 +18,9 @@ public class MyHashMap<K, V>  implements MyMap<K, V> {
 
     private static final double LOAD_FACTOR = 0.75;
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public MyHashMap() {
-        buckets = new HashMapEntry[INITIAL_CAPACITY];
+        buckets = (HashMapEntry<K, V>[]) new HashMapEntry[INITIAL_CAPACITY];
     }
 
     public MyHashMap(int capacity) {
@@ -30,7 +34,7 @@ public class MyHashMap<K, V>  implements MyMap<K, V> {
      * K is the type of the key.
      * V is the type of the value.
      *
-     * @param key - the key with which the specified value is associated
+     * @param key   - the key with which the specified value is associated
      * @param value - the value to be associated with the specified key
      */
     public void put(K key, V value) {
@@ -122,7 +126,7 @@ public class MyHashMap<K, V>  implements MyMap<K, V> {
      * @return true if the map contains the specified key or false if it does not.
      */
     public boolean contains(K key) {
-        if(get(key) != null) {
+        if (get(key) != null) {
             return true;
         }
         return false;

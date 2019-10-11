@@ -1,30 +1,31 @@
 package com.scalefocus.training.collection.link;
 
+import com.scalefocus.training.collection.common.BaseNode;
 import com.scalefocus.training.collection.common.MyList;
 import com.scalefocus.training.collection.common.Node;
 
-public class MyLinkedList implements MyList {
+public class MyLinkedList<T> implements MyList<T> {
 
-    private Node head;
+    private BaseNode<T> head;
 
-    private Node tail;
+    private BaseNode<T> tail;
 
     private int size = 0;
 
     /**
-     *This method adds an element in the list.
+     * This method adds an element in the list.
      *
      * @param data - the value that will be stored in the list
      */
-    public void add(Object data) {
-        Node node = new Node(data);
+    public void add(T data) {
+        BaseNode<T> node = new BaseNode<>(data);
 
         if (head == null) {
             head = node;
             tail = node;
 
         } else {
-            Node currentNode = tail;
+            BaseNode<T> currentNode = tail;
             currentNode.setNext(node);
             tail = node;
         }
@@ -36,8 +37,8 @@ public class MyLinkedList implements MyList {
      *
      * @param data - the value that will be stored as first element in the list
      */
-    public void insertAtStart(Object data) {
-        Node node = new Node(data);
+    public void insertAtStart(T data) {
+        BaseNode<T> node = new BaseNode<>(data);
 
         node.setNext(head);
         head = node;
@@ -49,9 +50,9 @@ public class MyLinkedList implements MyList {
      * If index is larger than the size of the list an {@link IndexOutOfBoundsException} will be thrown.
      *
      * @param index - the index where an element will be insert
-     * @param data - the value that will be stored on the specified index
+     * @param data  - the value that will be stored on the specified index
      */
-    public void insertAt(int index, Object data) {
+    public void insertAt(int index, T data) {
         if (index <= size) {
 
             if (index == 0) {
@@ -59,9 +60,9 @@ public class MyLinkedList implements MyList {
             } else if (index == size) {
                 add(data);
             } else {
-                Node node = new Node(data);
+                BaseNode<T> node = new BaseNode<>(data);
 
-                Node currentNode = head;
+                BaseNode<T> currentNode = head;
                 for (int i = 0; i < index - 1; i++) {
                     currentNode = currentNode.getNext();
                 }
@@ -83,9 +84,9 @@ public class MyLinkedList implements MyList {
      * @return the element that had been removed
      */
     @Override
-    public Object remove(int index) {
+    public T remove(int index) {
         if (index < size) {
-            Node target;
+            BaseNode<T> target;
 
             if (index == 0) {
                 target = head;
@@ -94,13 +95,16 @@ public class MyLinkedList implements MyList {
 
                 return target.getValue();
             } else {
-                Node currentNode = head;
+                BaseNode<T> currentNode = head;
 
                 for (int i = 0; i < index - 1; i++) {
                     currentNode = currentNode.getNext();
                 }
 
                 target = currentNode.getNext();
+                if (target.getNext() == null) {
+                    tail = currentNode;
+                }
                 currentNode.setNext(target.getNext());
                 --size;
 
@@ -119,9 +123,9 @@ public class MyLinkedList implements MyList {
      * @param index - the index from where an element will be got
      * @return the element that had been got
      */
-    public Object get(int index) {
+    public T get(int index) {
         if (index < size) {
-            Node currentNode = head;
+            BaseNode<T> currentNode = head;
             for (int i = 0; i < index; i++) {
                 currentNode = currentNode.getNext();
             }

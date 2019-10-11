@@ -1,16 +1,17 @@
 package com.scalefocus.training.collection.stack;
 
+import com.scalefocus.training.collection.common.BaseNode;
 import com.scalefocus.training.collection.common.MyQueue;
 import com.scalefocus.training.collection.common.Node;
 
 /**
  * @author Kristiyan SLavov
  */
-public class Stack implements MyQueue {
+public class Stack<T> implements MyQueue<T> {
 
-    private Node top;
+    private BaseNode<T> top;
 
-    private Node bottom;
+    private BaseNode<T> bottom;
 
     private int size = 0;
 
@@ -20,8 +21,8 @@ public class Stack implements MyQueue {
      * @param element - the specified element to be pushed onto this stack.
      */
     @Override
-    public void push(Object element) {
-        Node node = new Node(element);
+    public void push(T element) {
+        BaseNode<T> node = new BaseNode<>(element);
 
         if (bottom == null) {
             bottom = node;
@@ -39,9 +40,9 @@ public class Stack implements MyQueue {
      * @return - the object at the top of the stack.
      */
     @Override
-    public Object poll() {
+    public T poll() {
         if(top != null) {
-            Object value = top.getValue();
+            T value = top.getValue();
             if (top.getNext() != null) {
                 top = top.getNext();
             } else {
@@ -60,7 +61,7 @@ public class Stack implements MyQueue {
      * @return - the object at the top of the stack.
      */
     @Override
-    public Object peek() {
+    public T peek() {
         return top != null ? top.getValue() : null;
     }
 

@@ -5,10 +5,13 @@ import java.util.Objects;
 /**
  * @author Kristiyan SLavov
  */
-public class HashMapEntry<K,V> {
+public class HashMapEntry<K, V> {
+
     private K key;
+
     private V value;
-    private HashMapEntry<K,V> next;
+
+    private HashMapEntry<K, V> next;
 
     public HashMapEntry(K key, V value) {
         this.key = key;

@@ -1,37 +1,23 @@
 package com.scalefocus.training.collection.klink;
 
+import com.scalefocus.training.collection.common.Node;
+
 /**
  * @author Kristiyan SLavov
  */
-public class KNode {
+public class KNode<E> extends Node<E, KNode<E>> {
 
-    private Object value;
+    private KNode<E> kLink;
 
-    private KNode next;
-
-    private KNode kLink;
-
-    public KNode(Object value) {
-        this.value = value;
+    public KNode(E value) {
+        super(value);
     }
 
-    public KNode getkLink() {
+    public KNode<E> getkLink() {
         return kLink;
     }
 
-    public void setkLink(KNode kLink) {
+    public void setkLink(KNode<E> kLink) {
         this.kLink = kLink;
     }
-    public Object getValue() {
-        return value;
-    }
-
-    public void setNext(KNode next) {
-        this.next = next;
-    }
-
-    public KNode getNext() {
-        return next;
-    }
-
 }

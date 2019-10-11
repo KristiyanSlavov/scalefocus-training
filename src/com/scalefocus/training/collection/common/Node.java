@@ -1,24 +1,29 @@
 package com.scalefocus.training.collection.common;
 
-public class Node {
+public class Node<V, T extends Node<V,T>> {
 
-    private Object value;
+    private V value;
 
-    private Node next;
+    private T next;
 
-    public Node(Object value) {
+    public Node(V value) {
         this.value = value;
     }
 
-    public Object getValue() {
+    public V getValue() {
         return value;
     }
 
-    public void setNext(Node next) {
+    public void setValue(V value) {
+        this.value = value;
+    }
+
+    public T getNext() {
+        return next;
+    }
+
+    public void setNext(T next) {
         this.next = next;
     }
 
-    public Node getNext() {
-        return next;
-    }
 }

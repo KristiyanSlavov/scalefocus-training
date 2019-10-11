@@ -1,8 +1,8 @@
 package com.scalefocus.training.collection.common;
 
-public interface MyList extends MyCollection {
+public interface MyList<T> extends MyCollection<T> {
 
-    void insertAtStart(Object data);
+    void insertAtStart(T data);
 
-    void insertAt(int index, Object data);
+    void insertAt(int index, T data);
 }

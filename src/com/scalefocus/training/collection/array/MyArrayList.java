@@ -2,9 +2,10 @@ package com.scalefocus.training.collection.array;
 
 import com.scalefocus.training.collection.common.MyList;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
-public class MyArrayList implements MyList {
+public class MyArrayList<T> implements MyList<T> {
 
     private Object[] myStore;
 
@@ -14,7 +15,8 @@ public class MyArrayList implements MyList {
 
     private static final double LOAD_FACTOR = 0.75;
 
-    public MyArrayList() {
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public MyArrayList(Class<T> tClass) {
         myStore = new Object[MY_STORE_INITIAL_SIZE];
     }
 
@@ -25,10 +27,10 @@ public class MyArrayList implements MyList {
      * @param index - the index from where an element will be got
      * @return the element that had been got
      */
-    public Object get(int index) {
+    public T get(int index) {
         if (index < myStoreSize) {
             System.out.println("Element: " + myStore[index]);
-            return myStore[index];
+            return (T) myStore[index];
         } else {
             throw new ArrayIndexOutOfBoundsException();
         }
@@ -40,7 +42,7 @@ public class MyArrayList implements MyList {
      * @param data - the value that will be stored in the array
      */
     @Override
-    public void add(Object data) {
+    public void add(T data) {
         myStore[myStoreSize++] = data;
         if (checkMyStoreCapacity()) {
             increaseMyStoreCapacity();
@@ -52,20 +54,22 @@ public class MyArrayList implements MyList {
      *
      * @param data - the value that will be stored as first element in the array
      */
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
-    public void insertAtStart(Object data) {
-        Object[] result = new Object[myStore.length + 1];
+    public void insertAtStart(T data) {
+        T[] result = (T[]) new Object[myStore.length + 1];
 
         for (int i = 0; i < result.length; i++) {
             if (i == 0) {
                 result[i] = data;
             } else {
-                result[i] = myStore[i - 1];
+                result[i] = (T) myStore[i - 1];
             }
         }
         myStore = result;
         ++myStoreSize;
     }
+
 
     /**
      * This method inserts an element on specified index.
@@ -74,25 +78,26 @@ public class MyArrayList implements MyList {
      * @param index - the index where an element will be insert
      * @param data  - the value that will be stored on the specified index
      */
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
-    public void insertAt(int index, Object data) {
+    public void insertAt(int index, T data) {
         if (index <= myStoreSize) {
             if (index == 0) {
                 insertAtStart(data);
             } else if (index == myStoreSize) {
                 add(data);
             } else {
-                Object[] result = new Object[myStore.length + 1];
+                T[] result = (T[]) new Object[myStore.length + 1];
 
                 for (int i = 0; i < result.length; i++) {
                     if (i < index) {
-                        result[i] = myStore[i];
+                        result[i] = (T) myStore[i];
 
                     } else if (i == index) {
                         result[index] = data;
-
                     } else {
-                        result[i] = myStore[i - 1];
+
+                        result[i] = (T) myStore[i - 1];
                     }
                 }
                 myStore = result;
@@ -110,9 +115,9 @@ public class MyArrayList implements MyList {
      * @param index - the index where an element will be removed
      * @return the element that had been removed
      */
-    public Object remove(int index) {
+    public T remove(int index) {
         if (index < myStoreSize - 1) {
-            Object target = myStore[index];
+            T target = (T) myStore[index];
             int temp = index;
 
             while (temp < myStoreSize) {
@@ -139,7 +144,7 @@ public class MyArrayList implements MyList {
      *
      * @return true if the array's capacity needs to be increased and false if not needed.
      */
-    public boolean checkMyStoreCapacity() {
+    private boolean checkMyStoreCapacity() {
         return (double) (myStoreSize) / (double) (myStore.length) > LOAD_FACTOR;
     }
 

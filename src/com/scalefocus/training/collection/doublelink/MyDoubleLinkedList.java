@@ -5,11 +5,11 @@ import com.scalefocus.training.collection.common.MyList;
 /**
  * @author Kristiyan SLavov
  */
-public class MyDoubleLinkedList implements MyList {
+public class MyDoubleLinkedList<T> implements MyList<T> {
 
-    private Node head;
+    private DoubleNode<T> head;
 
-    private Node tail;
+    private DoubleNode<T> tail;
 
     private int size = 0;
 
@@ -21,19 +21,20 @@ public class MyDoubleLinkedList implements MyList {
      * @return the element that had been gotten
      */
     @Override
-    public Object get(int index) {
+    public T get(int index) {
         if (index < size) {
             if (index == 0 && head != null) {
                 System.out.println("Element at index: " + index + " is: " + head.getValue());
                 return head.getValue();
 
             } else {
-                Node currentNode = head;
+                DoubleNode<T> currentDoubleNode = head;
                 for (int i = 0; i < index; i++) {
-                    currentNode = currentNode.getNext();
+                    currentDoubleNode = currentDoubleNode.getNext();
                 }
-                System.out.println("Element at index: " + index + " is: " + currentNode.getValue());
-                return currentNode.getValue();
+                assert currentDoubleNode != null;
+                System.out.println("Element at index: " + index + " is: " + currentDoubleNode.getValue());
+                return currentDoubleNode.getValue();
             }
         } else {
             throw new IndexOutOfBoundsException();
@@ -46,25 +47,17 @@ public class MyDoubleLinkedList implements MyList {
      * @param data - the value that will be stored in the list
      */
     @Override
-    public void add(Object data) {
-        Node node = new Node(data);
+    public void add(T data) {
+        DoubleNode<T> doubleNode = new DoubleNode<>(data);
 
         if (head == null) {
-            head = node;
-            tail = node;
+            head = doubleNode;
+            tail = doubleNode;
         } else {
-            /*
-            Node currentNode = head;
-            while (currentNode.getNext() != null) {
-                currentNode = currentNode.getNext();
-            }
-            currentNode.setNext(node);
-            node.setPrevious(currentNode);
-            */
-            Node currentNode = tail;
-            currentNode.setNext(node);
-            node.setPrevious(currentNode);
-            tail = node;
+            DoubleNode<T> currentDoubleNode = tail;
+            currentDoubleNode.setNext(doubleNode);
+            doubleNode.setPrevious(currentDoubleNode);
+            tail = doubleNode;
         }
         ++size;
     }
@@ -75,15 +68,15 @@ public class MyDoubleLinkedList implements MyList {
      * @param data - the value that will be stored as first element in the list
      */
     @Override
-    public void insertAtStart(Object data) {
-        Node node = new Node(data);
-        node.setNext(head);
-        node.setPrevious(null);
+    public void insertAtStart(T data) {
+        DoubleNode<T> doubleNode = new DoubleNode<>(data);
+        doubleNode.setNext(head);
+        doubleNode.setPrevious(null);
 
         if (head != null) {
-            head.setPrevious(node);
+            head.setPrevious(doubleNode);
         }
-        head = node;
+        head = doubleNode;
         ++size;
     }
 
@@ -95,7 +88,7 @@ public class MyDoubleLinkedList implements MyList {
      * @param data - the value that will be stored on the specified index
      */
     @Override
-    public void insertAt(int index, Object data) {
+    public void insertAt(int index, T data) {
         if (index <= size) {
 
             if (index == 0) {
@@ -103,19 +96,19 @@ public class MyDoubleLinkedList implements MyList {
             } else if (index == size) {
                 add(data);
             } else {
-                Node node = new Node(data);
-                Node currentNode = head;
-                Node afterCurrentNode;
+                DoubleNode<T> doubleNode = new DoubleNode<>(data);
+                DoubleNode<T> currentDoubleNode = head;
+                DoubleNode<T> afterCurrentDoubleNode;
 
                 for (int i = 0; i < index - 1; i++) {
-                    currentNode = currentNode.getNext();
+                    currentDoubleNode = currentDoubleNode.getNext();
                 }
 
-                afterCurrentNode = currentNode.getNext();
-                currentNode.setNext(node);
-                afterCurrentNode.setPrevious(node);
-                node.setNext(afterCurrentNode);
-                node.setPrevious(currentNode);
+                afterCurrentDoubleNode = currentDoubleNode.getNext();
+                currentDoubleNode.setNext(doubleNode);
+                afterCurrentDoubleNode.setPrevious(doubleNode);
+                doubleNode.setNext(afterCurrentDoubleNode);
+                doubleNode.setPrevious(currentDoubleNode);
                 ++size;
             }
         } else {
@@ -131,10 +124,10 @@ public class MyDoubleLinkedList implements MyList {
      * @return the element that had been removed
      */
     @Override
-    public Object remove(int index) {
+    public T remove(int index) {
         if (index < size) {
-            Node target;
-            Node afterTargetNode;
+            DoubleNode<T> target;
+            DoubleNode<T> afterTargetDoubleNode;
 
             if (index == 0) {
                 target = head;
@@ -142,15 +135,15 @@ public class MyDoubleLinkedList implements MyList {
                 head.setPrevious(null);
                 return target.getValue();
             } else {
-                Node currentNode = head;
+                DoubleNode<T> currentDoubleNode = head;
 
                 for (int i = 0; i < index - 1; i++) {
-                    currentNode = currentNode.getNext();
+                    currentDoubleNode = currentDoubleNode.getNext();
                 }
-                target = currentNode.getNext();
-                afterTargetNode = target.getNext();
-                currentNode.setNext(target.getNext());
-                afterTargetNode.setPrevious(target.getPrevious());
+                target = currentDoubleNode.getNext();
+                afterTargetDoubleNode = target.getNext();
+                currentDoubleNode.setNext(target.getNext());
+                afterTargetDoubleNode.setPrevious(target.getPrevious());
 
                 --size;
                 return target.getValue();
@@ -174,13 +167,13 @@ public class MyDoubleLinkedList implements MyList {
      */
     @Override
     public void print() {
-        Node currentNode = head;
+        DoubleNode<T> currentDoubleNode = head;
 
-        while (currentNode.getNext() != null) {
+        while (currentDoubleNode.getNext() != null) {
 
-            System.out.println(currentNode.getValue());
-            currentNode = currentNode.getNext();
+            System.out.println(currentDoubleNode.getValue());
+            currentDoubleNode = currentDoubleNode.getNext();
         }
-        System.out.println(currentNode.getValue());
+        System.out.println(currentDoubleNode.getValue());
     }
 }

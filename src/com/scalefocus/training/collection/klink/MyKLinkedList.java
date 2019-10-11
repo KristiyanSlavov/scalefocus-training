@@ -5,13 +5,13 @@ import com.scalefocus.training.collection.common.MyCollection;
 /**
  * @author Kristiyan SLavov
  */
-public class MyKLinkedList implements MyCollection {
+public class MyKLinkedList<T> implements MyCollection<T> {
 
-    private KNode head;
+    private KNode<T> head;
 
-    private KNode tail;
+    private KNode<T> tail;
 
-    private KNode kNode;
+    private KNode<T> kNode;
 
     private int size = 0;
 
@@ -33,9 +33,9 @@ public class MyKLinkedList implements MyCollection {
      * @return the element that had been got
      */
     @Override
-    public Object get(int position) {
-        KNode target;
-        KNode currentNode;
+    public T get(int position) {
+        KNode<T> target;
+        KNode<T> currentNode;
         if (position >= 1 && position <= size) {
 
             if (position == 1) {
@@ -75,8 +75,8 @@ public class MyKLinkedList implements MyCollection {
      * @param data - the value that will be stored in the list
      */
     @Override
-    public void add(Object data) {
-        KNode node = new KNode(data);
+    public void add(T data) {
+        KNode<T> node = new KNode<>(data);
 
         if (head == null) {
             head = node;
@@ -98,9 +98,9 @@ public class MyKLinkedList implements MyCollection {
      * @return the element that had been removed
      */
     @Override
-    public Object remove(int position) {
-        KNode removed = null;
-        KNode current = head;
+    public T remove(int position) {
+        KNode<T> removed = null;
+        KNode<T> current = head;
 
         if (position >= 1 && position <= size) {
 
@@ -115,7 +115,7 @@ public class MyKLinkedList implements MyCollection {
                     setKNodes(current, i);
                     current = current.getNext();
                 }
-                return removed;
+                return removed.getValue();
             }
             for (int i = 1; i <= size; i++) {
                 current.setkLink(null);
@@ -131,7 +131,8 @@ public class MyKLinkedList implements MyCollection {
                 }
                 current = current.getNext();
             }
-            return removed;
+            assert removed != null;
+            return removed.getValue();
         } else {
             throw new IndexOutOfBoundsException();
         }
@@ -143,7 +144,7 @@ public class MyKLinkedList implements MyCollection {
      * @param currentNode - the starting node
      * @param position    - the position of the starting node
      */
-    private void setKNodes(KNode currentNode, int position) {
+    private void setKNodes(KNode<T> currentNode, int position) {
         if (position % k == 0) {
             if (position == k) {
                 kNode = currentNode;
@@ -159,7 +160,7 @@ public class MyKLinkedList implements MyCollection {
      */
     @Override
     public void print() {
-        KNode cur = head;
+        KNode<T> cur = head;
         while (cur != null) {
             System.out.println(cur + "::" + cur.getValue() + " -> " + cur.getkLink());
             cur = cur.getNext();
