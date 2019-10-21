@@ -1,8 +1,5 @@
 package com.scalefocus.training.collection.tree;
 
-import com.scalefocus.training.collection.queue.Queue;
-import com.scalefocus.training.collection.stack.Stack;
-
 /**
  * @author Kristiyan SLavov
  */
@@ -38,7 +35,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
             while (true) {
                 parent = currentNode;
 
-                if (key.compareTo(currentNode.getKey()) < 0) {
+                if (key.compareTo(currentNode.getValue()) < 0) {
                     currentNode = currentNode.getLeftChild();
                     if (currentNode == null) {
                         parent.setLeftChild(newNode);
@@ -55,98 +52,13 @@ public class BinarySearchTree<T extends Comparable<T>> {
         }
     }
 
-    /**
-     * This method traverses the tree through Depth-first search(inorder) using recursion.
-     *
-     * @param node - the roof node
-     */
-    public void inOrderTraverse(TreeNode<T> node) {
-        if (node != null) {
-            inOrderTraverse(node.getLeftChild());
-            System.out.println(node.getKey());
-            inOrderTraverse(node.getRightChild());
+    public TreeNode<T> search(TreeNode<T> root, T value) {
+        if (root == null || root.getValue().equals(value)) {
+            return root;
         }
-    }
-
-    /**
-     * This method traverses the tree through Depth-first search(preorder) using recursion.
-     *
-     * @param node - the roof node
-     */
-    public void preOrderTraverse(TreeNode<T> node) {
-        if (node != null) {
-            System.out.println(node.getKey());
-            preOrderTraverse(node.getLeftChild());
-            preOrderTraverse(node.getRightChild());
+        if (root.getValue().compareTo(value) > 0) {
+            return search(root.getLeftChild(), value);
         }
-    }
-
-    /**
-     * This method traverses the tree through Depth-first search(postorder) using recursion.
-     *
-     * @param node - the roof node
-     */
-    public void postOrderTraverse(TreeNode<T> node) {
-        if (node != null) {
-            postOrderTraverse(node.getLeftChild());
-            postOrderTraverse(node.getRightChild());
-            System.out.println(node.getKey());
-        }
-    }
-
-    //    public String findNode(T key) {
-    //        TreeNode currentNode = root;
-    //
-    //        while (currentNode.getKey() != key) {
-    //            if (key < currentNode.getKey()) {
-    //                currentNode = currentNode.getLeftChild();
-    //            } else {
-    //                currentNode = currentNode.getRightChild();
-    //            }
-    //            if (currentNode == null) {
-    //                return null;
-    //            }
-    //        }
-    //        return currentNode.getName();
-    //    }
-
-    /**
-     * This method traverses the tree through Breadth-first search using queue.
-     */
-    public void breadthFirstSearch() {
-        Queue<TreeNode<T>> queue = new Queue<>();
-        queue.push(root);
-        while (queue.size() != 0) {
-            TreeNode<T> currentNode = queue.poll();
-            System.out.println(currentNode.getKey());
-            if (currentNode.getLeftChild() != null) {
-                queue.push(currentNode.getLeftChild());
-            }
-            if (currentNode.getRightChild() != null) {
-                queue.push(currentNode.getRightChild());
-            }
-        }
-    }
-
-    /**
-     * This method traverses the tree through Depth-first search using stack.
-     */
-    public void depthFirstSearch() {
-        if (root == null) {
-            return;
-        }
-
-        Stack<TreeNode<T>> stack = new Stack<>();
-        stack.push(root);
-        while (stack.size() != 0) {
-            TreeNode<T> currentNode = stack.poll();
-            System.out.println(currentNode.getKey());
-            if (currentNode.getRightChild() != null) {
-                stack.push(currentNode.getRightChild());
-            }
-            if (currentNode.getLeftChild() != null) {
-                stack.push(currentNode.getLeftChild());
-            }
-        }
+        return search(root.getRightChild(), value);
     }
 }

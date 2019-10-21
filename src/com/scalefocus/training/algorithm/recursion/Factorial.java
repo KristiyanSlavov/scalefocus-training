@@ -13,14 +13,13 @@ public class Factorial {
     private static List<Integer> memoizeCache = new ArrayList<>();
 
     /**
-     * This method return factorial of the specified number
+     * This method return factorial of the specified number.
+     * The method is implemented using memoization technique to speed up the method.
      *
      * @param n - the specified number
      * @return the factorial of the specified number
      */
-    public static Integer fact(Integer n) {
-        //return n == 0 || n == 1 ? 1 : n * fact(n - 1);
-
+    public Integer memoizationFactorial(Integer n) {
         if (n == 0) {
             return 1;
         } else {
@@ -28,9 +27,19 @@ public class Factorial {
             if (memoizeCache.size() >= n) {
                 return memoizeCache.get(n - 1);
             }
-            int factorial = n * fact(n - 1);
+            int factorial = n * memoizationFactorial(n - 1);
             memoizeCache.add(factorial);
             return factorial;
         }
+    }
+
+    /**
+     * This method return factorial of the specified number.
+     *
+     * @param n - the specified number
+     * @return the factorial of the specified number
+     */
+    public long fact(int n) {
+        return n == 0 || n == 1 ? 1 : n * fact(n - 1);
     }
 }

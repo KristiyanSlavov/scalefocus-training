@@ -5,22 +5,22 @@ package com.scalefocus.training.collection.tree;
  */
 public class TreeNode<T> {
 
-    private T key;
+    private final T value;
 
     private TreeNode<T> leftChild;
 
     private TreeNode<T> rightChild;
 
-    public TreeNode(T key) {
-        this.key = key;
+    public TreeNode(T value) {
+        this.value = value;
     }
 
-    public T getKey() {
-        return key;
+    public boolean isComplete() {
+        return leftChild != null & rightChild != null;
     }
 
-    public void setKey(T key) {
-        this.key = key;
+    public T getValue() {
+        return value;
     }
 
     public TreeNode<T> getLeftChild() {
