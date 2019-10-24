@@ -1,17 +1,20 @@
 package com.scalefocus.training.collection.tree;
 
+import java.util.Objects;
+
 /**
  * @author Kristiyan SLavov
  */
-public class TreeNode<T> {
+public class TreeNode<V> {
 
-    private final T value;
+    private final V value;
 
-    private TreeNode<T> leftChild;
+    private TreeNode<V> leftChild;
 
-    private TreeNode<T> rightChild;
+    private TreeNode<V> rightChild;
 
-    public TreeNode(T value) {
+
+    public TreeNode(V value) {
         this.value = value;
     }
 
@@ -19,23 +22,38 @@ public class TreeNode<T> {
         return leftChild != null & rightChild != null;
     }
 
-    public T getValue() {
+    public V getValue() {
         return value;
     }
 
-    public TreeNode<T> getLeftChild() {
+    public TreeNode<V> getLeftChild() {
         return leftChild;
     }
 
-    public void setLeftChild(TreeNode<T> leftChild) {
+    public void setLeftChild(TreeNode<V> leftChild) {
         this.leftChild = leftChild;
     }
 
-    public TreeNode<T> getRightChild() {
+    public TreeNode<V> getRightChild() {
         return rightChild;
     }
 
-    public void setRightChild(TreeNode<T> rightChild) {
+    public void setRightChild(TreeNode<V> rightChild) {
         this.rightChild = rightChild;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TreeNode<?> treeNode = (TreeNode<?>) o;
+        return value.equals(treeNode.value) &&
+                leftChild.equals(treeNode.leftChild) &&
+                rightChild.equals(treeNode.rightChild);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value, leftChild, rightChild);
     }
 }

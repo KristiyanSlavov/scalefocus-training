@@ -3,15 +3,15 @@ package com.scalefocus.training.collection.tree;
 /**
  * @author Kristiyan SLavov
  */
-public class BinarySearchTree<T extends Comparable<T>> {
+public class BinarySearchTree<V extends Comparable<V>> {
 
-    private TreeNode<T> root;
+    private TreeNode<V> root;
 
-    public TreeNode<T> getRoot() {
+    public TreeNode<V> getRoot() {
         return root;
     }
 
-    public void setRoot(TreeNode<T> root) {
+    public void setRoot(TreeNode<V> root) {
         this.root = root;
     }
 
@@ -20,39 +20,50 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * If the value of the new node is less than it's parent's value then the new node's position
      * will be to the left of its parent, else it will be to the right of its parent.
      *
-     * @param key - the value of the new node
+     * @param value - the value of the new node
+     * @return - the new added node
      */
-    public void add(T key) {
-        TreeNode<T> newNode = new TreeNode<>(key);
+    public TreeNode<V> add(V value) {
+        TreeNode<V> newNode = new TreeNode<>(value);
+
 
         if (root == null) {
             root = newNode;
 
         } else {
-            TreeNode<T> currentNode = root;
-            TreeNode<T> parent;
+            TreeNode<V> currentNode = root;
+            TreeNode<V> parent;
 
             while (true) {
                 parent = currentNode;
-
-                if (key.compareTo(currentNode.getValue()) < 0) {
+                if (newNode.getValue().compareTo(currentNode.getValue()) < 0) {
                     currentNode = currentNode.getLeftChild();
                     if (currentNode == null) {
                         parent.setLeftChild(newNode);
-                        return;
+                        newNode.setParent(parent); //added for rbtree and backtracking
+                        return newNode;
                     }
                 } else {
                     currentNode = currentNode.getRightChild();
                     if (currentNode == null) {
                         parent.setRightChild(newNode);
-                        return;
+                        newNode.setParent(parent);
+                        return newNode;
                     }
                 }
             }
         }
+        return newNode;
     }
 
-    public TreeNode<T> search(TreeNode<T> root, T value) {
+    /**
+     * The method search and returns a specified node from the BinarySearchTree.
+     *
+     * @param root  - the root of the tree
+     * @param value - the value of the specified node
+     * @return - the specified node
+     */
+    public TreeNode<V> search(TreeNode<V> root, V value) {
         if (root == null || root.getValue().equals(value)) {
             return root;
         }
