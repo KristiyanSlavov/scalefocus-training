@@ -7,6 +7,8 @@ import java.util.Objects;
  */
 public class RBNode<V> {
 
+    private V value;
+
     private String color;
 
     private RBNode<V> parent;
@@ -15,11 +17,19 @@ public class RBNode<V> {
 
     private RBNode<V> rightChild;
 
-    private final V value;
+    public RBNode() {}
 
     public RBNode(V value, String color) {
         this.value = value;
         this.color = color;
+    }
+
+    public V getValue() {
+        return value;
+    }
+
+    public void setValue(V value) {
+        this.value = value;
     }
 
     public String getColor() {
@@ -54,21 +64,20 @@ public class RBNode<V> {
         this.rightChild = rightChild;
     }
 
-    public V getValue() {
-        return value;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
         RBNode<?> rbNode = (RBNode<?>) o;
-        return color.equals(rbNode.color);
+        return Objects.equals(value, rbNode.value) &&
+                Objects.equals(color, rbNode.color) &&
+                Objects.equals(parent, rbNode.parent) &&
+                Objects.equals(leftChild, rbNode.leftChild) &&
+                Objects.equals(rightChild, rbNode.rightChild);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), color);
+        return Objects.hash(value, color, parent, leftChild, rightChild);
     }
 }

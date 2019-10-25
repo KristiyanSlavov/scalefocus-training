@@ -7,12 +7,13 @@ import java.util.Objects;
  */
 public class TreeNode<V> {
 
-    private final V value;
+    private V value;
 
     private TreeNode<V> leftChild;
 
     private TreeNode<V> rightChild;
 
+    public TreeNode() {}
 
     public TreeNode(V value) {
         this.value = value;
