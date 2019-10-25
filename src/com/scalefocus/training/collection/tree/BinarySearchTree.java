@@ -40,14 +40,12 @@ public class BinarySearchTree<V extends Comparable<V>> {
                     currentNode = currentNode.getLeftChild();
                     if (currentNode == null) {
                         parent.setLeftChild(newNode);
-                        newNode.setParent(parent); //added for rbtree and backtracking
                         return newNode;
                     }
                 } else {
                     currentNode = currentNode.getRightChild();
                     if (currentNode == null) {
                         parent.setRightChild(newNode);
-                        newNode.setParent(parent);
                         return newNode;
                     }
                 }

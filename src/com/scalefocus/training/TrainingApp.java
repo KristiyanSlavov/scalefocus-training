@@ -1,20 +1,21 @@
 package com.scalefocus.training;
 
-import com.scalefocus.training.collection.tree.RBNode;
 import com.scalefocus.training.collection.tree.RedBlackTree;
-import com.scalefocus.training.collection.tree.TreeNode;
+
+import java.util.stream.IntStream;
 
 public class TrainingApp {
 
     public static void main(String[] args) {
-        RedBlackTree<Integer, RBNode<Integer, TreeNode<Integer>>> redBlackTree = new RedBlackTree<>();
-        redBlackTree.insert(23);
-        redBlackTree.insert(10);
-        redBlackTree.insert(33);
-        redBlackTree.insert(3);
-        redBlackTree.insert(5);
-        redBlackTree.insert(30);
-        redBlackTree.insert(35);
+        RedBlackTree<Integer> redBlackTree = new RedBlackTree<>();
+//        redBlackTree.insert(23);
+//        redBlackTree.insert(10);
+//        redBlackTree.insert(33);
+//        redBlackTree.insert(3);
+//        redBlackTree.insert(5);
+//        redBlackTree.insert(30);
+//        redBlackTree.insert(35);
+//        redBlackTree.insert(12);
 
 //        redBlackTree.insert(10);
 //        redBlackTree.insert(1);
@@ -30,7 +31,12 @@ public class TrainingApp {
 //        redBlackTree.insert(17);
 //        redBlackTree.insert(33);
 //        redBlackTree.insert(34);
+//        redBlackTree.insert(3);
+//        redBlackTree.insert(4);
+//        redBlackTree.insert(18);
 //        redBlackTree.delete(66);
-//        redBlackTree.print();
+
+        IntStream.range(1, 33).forEach(redBlackTree::insert);
+        redBlackTree.print();
     }
 }
