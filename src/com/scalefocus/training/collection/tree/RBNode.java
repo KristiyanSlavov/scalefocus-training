@@ -5,21 +5,26 @@ import java.util.Objects;
 /**
  * @author Kristiyan SLavov
  */
-public class RBNode<V> {
+public class RBNode<V extends Comparable<V>> extends TreeNode<V, RBNode<V>> {
 
     private String color;
 
-    private RBNode<V> parent;
-
-    private RBNode<V> leftChild;
-
-    private RBNode<V> rightChild;
-
-    private final V value;
-
     public RBNode(V value, String color) {
-        this.value = value;
+        super(value);
         this.color = color;
+    }
+
+    public RBNode(TreeNode<V, TreeNode> treeNode) {
+        super(treeNode.getValue());
+//        if (treeNode.getRightChild() != null) {
+//            setRightChild(new RBNode<>(treeNode.getRightChild()));
+//        }
+        if (treeNode.getParent() != null) {
+            setParent(new RBNode<>(treeNode.getParent()));
+        }
+        if (treeNode.getLeftChild() != null) {
+            setLeftChild(new RBNode<>(treeNode.getLeftChild()));
+        }
     }
 
     public String getColor() {
@@ -28,34 +33,6 @@ public class RBNode<V> {
 
     public void setColor(String color) {
         this.color = color;
-    }
-
-    public RBNode<V> getParent() {
-        return parent;
-    }
-
-    public void setParent(RBNode<V> parent) {
-        this.parent = parent;
-    }
-
-    public RBNode<V> getLeftChild() {
-        return leftChild;
-    }
-
-    public void setLeftChild(RBNode<V> leftChild) {
-        this.leftChild = leftChild;
-    }
-
-    public RBNode<V> getRightChild() {
-        return rightChild;
-    }
-
-    public void setRightChild(RBNode<V> rightChild) {
-        this.rightChild = rightChild;
-    }
-
-    public V getValue() {
-        return value;
     }
 
     @Override

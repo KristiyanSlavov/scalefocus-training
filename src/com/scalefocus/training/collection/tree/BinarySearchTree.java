@@ -5,13 +5,13 @@ package com.scalefocus.training.collection.tree;
  */
 public class BinarySearchTree<V extends Comparable<V>> {
 
-    private TreeNode<V> root;
+    private TreeNode<V, TreeNode> root;
 
-    public TreeNode<V> getRoot() {
+    public TreeNode<V, TreeNode> getRoot() {
         return root;
     }
 
-    public void setRoot(TreeNode<V> root) {
+    public void setRoot(TreeNode<V, TreeNode> root) {
         this.root = root;
     }
 
@@ -23,16 +23,15 @@ public class BinarySearchTree<V extends Comparable<V>> {
      * @param value - the value of the new node
      * @return - the new added node
      */
-    public TreeNode<V> add(V value) {
-        TreeNode<V> newNode = new TreeNode<>(value);
-
+    public TreeNode<V, TreeNode> add(V value) {
+        TreeNode<V, TreeNode> newNode = new TreeNode<>(value);
 
         if (root == null) {
             root = newNode;
 
         } else {
-            TreeNode<V> currentNode = root;
-            TreeNode<V> parent;
+            TreeNode<V, TreeNode> currentNode = root;
+            TreeNode<V, TreeNode> parent;
 
             while (true) {
                 parent = currentNode;
@@ -40,7 +39,7 @@ public class BinarySearchTree<V extends Comparable<V>> {
                     currentNode = currentNode.getLeftChild();
                     if (currentNode == null) {
                         parent.setLeftChild(newNode);
-                        newNode.setParent(parent); //added for rbtree and backtracking
+                        newNode.setParent(parent);
                         return newNode;
                     }
                 } else {
@@ -63,7 +62,7 @@ public class BinarySearchTree<V extends Comparable<V>> {
      * @param value - the value of the specified node
      * @return - the specified node
      */
-    public TreeNode<V> search(TreeNode<V> root, V value) {
+    public TreeNode<V, TreeNode> search(TreeNode<V, TreeNode> root, V value) {
         if (root == null || root.getValue().equals(value)) {
             return root;
         }

@@ -5,14 +5,15 @@ import java.util.Objects;
 /**
  * @author Kristiyan SLavov
  */
-public class TreeNode<V> {
+public class TreeNode<V, T> {
 
     private final V value;
 
-    private TreeNode<V> leftChild;
+    private T leftChild;
 
-    private TreeNode<V> rightChild;
+    private T rightChild;
 
+    private T parent;
 
     public TreeNode(V value) {
         this.value = value;
@@ -26,34 +27,43 @@ public class TreeNode<V> {
         return value;
     }
 
-    public TreeNode<V> getLeftChild() {
+    public T getLeftChild() {
         return leftChild;
     }
 
-    public void setLeftChild(TreeNode<V> leftChild) {
+    public void setLeftChild(T leftChild) {
         this.leftChild = leftChild;
     }
 
-    public TreeNode<V> getRightChild() {
+    public T getRightChild() {
         return rightChild;
     }
 
-    public void setRightChild(TreeNode<V> rightChild) {
+    public void setRightChild(T rightChild) {
         this.rightChild = rightChild;
+    }
+
+    public T getParent() {
+        return parent;
+    }
+
+    public void setParent(T parent) {
+        this.parent = parent;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TreeNode<?> treeNode = (TreeNode<?>) o;
-        return value.equals(treeNode.value) &&
-                leftChild.equals(treeNode.leftChild) &&
-                rightChild.equals(treeNode.rightChild);
+        TreeNode<?, ?> treeNode = (TreeNode<?, ?>) o;
+        return Objects.equals(value, treeNode.value) &&
+                Objects.equals(leftChild, treeNode.leftChild) &&
+                Objects.equals(rightChild, treeNode.rightChild) &&
+                Objects.equals(parent, treeNode.parent);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value, leftChild, rightChild);
+        return Objects.hash(value, leftChild, rightChild, parent);
     }
 }
