@@ -16,7 +16,7 @@ public class MyArrayList<T> implements MyList<T> {
     private static final double LOAD_FACTOR = 0.75;
 
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public MyArrayList(Class<T> tClass) {
+    public MyArrayList() {
         myStore = new Object[MY_STORE_INITIAL_SIZE];
     }
 
@@ -57,7 +57,10 @@ public class MyArrayList<T> implements MyList<T> {
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public void insertAtStart(T data) {
-        T[] result = (T[]) new Object[myStore.length + 1];
+        if (checkMyStoreCapacity()) {
+            increaseMyStoreCapacity();
+        }
+        T[] result = (T[]) new Object[myStore.length];
 
         for (int i = 0; i < result.length; i++) {
             if (i == 0) {
@@ -87,16 +90,17 @@ public class MyArrayList<T> implements MyList<T> {
             } else if (index == myStoreSize) {
                 add(data);
             } else {
-                T[] result = (T[]) new Object[myStore.length + 1];
+                if (checkMyStoreCapacity()) {
+                    increaseMyStoreCapacity();
+                }
+                T[] result = (T[]) new Object[myStore.length];
 
                 for (int i = 0; i < result.length; i++) {
                     if (i < index) {
                         result[i] = (T) myStore[i];
-
                     } else if (i == index) {
                         result[index] = data;
                     } else {
-
                         result[i] = (T) myStore[i - 1];
                     }
                 }
@@ -125,6 +129,7 @@ public class MyArrayList<T> implements MyList<T> {
                 myStore[temp + 1] = null;
                 temp++;
             }
+
             myStoreSize--;
             return target;
         } else {
@@ -136,7 +141,12 @@ public class MyArrayList<T> implements MyList<T> {
      * This method increases the array's capacity by two.
      */
     private void increaseMyStoreCapacity() {
-        myStore = Arrays.copyOf(myStore, myStore.length * 2);
+        //myStore = Arrays.copyOf(myStore, myStore.length * 2);
+        Object[] helper = new Object[myStore.length*2];
+        for (int i = 0; i < myStore.length; i++) {
+            helper[i] = myStore[i];
+        }
+        myStore = helper;
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.scalefocus.training.collection.tree;
+package com.scalefocus.training.collection.common;
 
 import java.util.Objects;
 
@@ -9,7 +9,7 @@ public class RBNode<V> {
 
     private V value;
 
-    private String color;
+    private Color color;
 
     private RBNode<V> parent;
 
@@ -17,9 +17,10 @@ public class RBNode<V> {
 
     private RBNode<V> rightChild;
 
-    public RBNode() {}
+    public RBNode() {
+    }
 
-    public RBNode(V value, String color) {
+    public RBNode(V value, Color color) {
         this.value = value;
         this.color = color;
     }
@@ -32,11 +33,11 @@ public class RBNode<V> {
         this.value = value;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 
@@ -69,11 +70,11 @@ public class RBNode<V> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RBNode<?> rbNode = (RBNode<?>) o;
-        return Objects.equals(value, rbNode.value) &&
-                Objects.equals(color, rbNode.color) &&
-                Objects.equals(parent, rbNode.parent) &&
-                Objects.equals(leftChild, rbNode.leftChild) &&
-                Objects.equals(rightChild, rbNode.rightChild);
+        return value.equals(rbNode.value) &&
+                color == rbNode.color &&
+                parent.equals(rbNode.parent) &&
+                leftChild.equals(rbNode.leftChild) &&
+                rightChild.equals(rbNode.rightChild);
     }
 
     @Override

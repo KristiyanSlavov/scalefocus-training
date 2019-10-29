@@ -1,5 +1,7 @@
 package com.scalefocus.training.collection.tree;
 
+import com.scalefocus.training.collection.common.TreeNode;
+
 /**
  * @author Kristiyan SLavov
  */

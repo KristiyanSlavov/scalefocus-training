@@ -1,4 +1,4 @@
-package com.scalefocus.training.collection.tree;
+package com.scalefocus.training.collection.common;
 
 import java.util.Objects;
 

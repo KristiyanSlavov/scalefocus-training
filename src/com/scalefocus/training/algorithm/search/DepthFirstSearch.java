@@ -2,7 +2,7 @@ package com.scalefocus.training.algorithm.search;
 
 import com.scalefocus.training.collection.stack.Stack;
 import com.scalefocus.training.collection.tree.BinarySearchTree;
-import com.scalefocus.training.collection.tree.TreeNode;
+import com.scalefocus.training.collection.common.TreeNode;
 
 /**
  * @author Kristiyan SLavov
