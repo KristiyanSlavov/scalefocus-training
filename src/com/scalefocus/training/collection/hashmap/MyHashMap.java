@@ -2,8 +2,6 @@ package com.scalefocus.training.collection.hashmap;
 
 import com.scalefocus.training.collection.common.MyMap;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 
 /**
  * @author Kristiyan SLavov
@@ -38,28 +36,33 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
      * @param value - the value to be associated with the specified key
      */
     public void put(K key, V value) {
-        HashMapEntry<K, V> entry = new HashMapEntry<K, V>(key, value);
+        HashMapEntry<K, V> entry = new HashMapEntry<>(key, value);
+
+        if (entry.getKey() == null) {
+            putNullKeyEntry(entry);
+            return;
+        }
+
         int index = getBucketIndex(key);
         HashMapEntry<K, V> existingEntry = buckets[index];
 
         if (existingEntry == null) {
             buckets[index] = entry;
-            ++size;
         } else {
-            if (existingEntry.getKey().equals(key)) {
+            if (key.equals(existingEntry.getKey())) {
                 existingEntry.setValue(value);
                 return;
             }
             while (existingEntry.getNext() != null) {
-                if (existingEntry.getNext().getKey().equals(key)) {
-                    existingEntry.setValue(value);
+                if (key.equals(existingEntry.getNext().getKey())) {
+                    existingEntry.getNext().setValue(value);
                     return;
                 }
                 existingEntry = existingEntry.getNext();
             }
             existingEntry.setNext(entry);
-            ++size;
         }
+        ++size;
 
         double curLoadFactor = (1.0 * size / buckets.length);
         if (curLoadFactor > LOAD_FACTOR) {
@@ -78,10 +81,13 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
      * or null if the map doesn't contain the specified key
      */
     public V get(K key) {
+        if(key == null) {
+            return getNullKeyEntry();
+        }
         int index = getBucketIndex(key);
         HashMapEntry<K, V> head = buckets[index];
         while (head != null) {
-            if (head.getKey().equals(key)) {
+            if (key.equals(head.getKey())) {
                 return head.getValue();
             }
             head = head.getNext();
@@ -99,19 +105,24 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
      */
     public V remove(K key) {
         V value;
+        if(key == null) {
+            return removeNullKeyEntry();
+        }
         int index = getBucketIndex(key);
         HashMapEntry<K, V> head = buckets[index];
         boolean hasNext = head.getNext() != null;
 
-        if (head.getKey().equals(key)) {
+        if (key.equals(head.getKey())) {
             value = head.getValue();
             buckets[index] = hasNext ? head.getNext() : null;
+            --size;
             return value;
         }
         while (head != null) {
-            if (head.getNext().getKey().equals(key)) {
+            if (key.equals(head.getNext().getKey())) {
                 value = head.getNext().getValue();
                 head.setNext(head.getNext().getNext());
+                --size;
                 return value;
             }
             head = head.getNext();
@@ -126,10 +137,7 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
      * @return true if the map contains the specified key or false if it does not.
      */
     public boolean contains(K key) {
-        if (get(key) != null) {
-            return true;
-        }
-        return false;
+        return get(key) != null;
     }
 
     /**
@@ -140,7 +148,7 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
      * @return the index where the specified value associated with the specified key will be stored.
      */
     private int getBucketIndex(K key) {
-        int hashCode = key.hashCode();
+        int hashCode = Math.abs(key.hashCode());
         return hashCode & (buckets.length - 1);
     }
 
@@ -197,4 +205,74 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
     public int length() {
         return buckets.length;
     }
+
+    /**
+     * This method returns true if the map contains no key-value mappings.
+     *
+     * @return true if the map contains no key-value mappings or false if it does
+     */
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    private void putNullKeyEntry(HashMapEntry<K, V> entry) {
+        HashMapEntry<K, V> existingEntry = buckets[0];
+
+        if (existingEntry == null) {
+            buckets[0] = entry;
+        } else {
+            if (existingEntry.getKey() == null) {
+                existingEntry.setValue(entry.getValue());
+                return;
+            }
+            while (existingEntry.getNext() != null) {
+                if (existingEntry.getNext().getKey() == null) {
+                    existingEntry.getNext().setValue(entry.getValue());
+                    return;
+                }
+
+                existingEntry = existingEntry.getNext();
+            }
+            existingEntry.setNext(entry);
+        }
+        size++;
+    }
+
+    private V getNullKeyEntry(){
+        HashMapEntry<K,V> existingEntry = buckets[0];
+        if (existingEntry.getKey() == null) {
+            return existingEntry.getValue();
+        }
+        while(existingEntry.getNext() != null) {
+            if (existingEntry.getNext().getKey() == null) {
+                return existingEntry.getNext().getValue();
+            }
+            existingEntry = existingEntry.getNext();
+        }
+        return null;
+    }
+
+    private V removeNullKeyEntry() {
+        V value;
+        HashMapEntry<K, V> head = buckets[0];
+        boolean hasNext = head.getNext() != null;
+
+        if (head.getKey() == null) {
+            value = head.getValue();
+            buckets[0] = hasNext ? head.getNext() : null;
+            --size;
+            return value;
+        }
+        while(head.getNext() != null) {
+            if(head.getNext().getKey() == null) {
+                value = head.getNext().getValue();
+                head.setNext(head.getNext().getNext());
+                --size;
+                return value;
+            }
+            head = head.getNext();
+        }
+        return null;
+    }
+
 }

@@ -5,24 +5,35 @@ import java.util.Objects;
 /**
  * @author Kristiyan SLavov
  */
-public class RBNode<V> {
+public class RBNode<K, V> {
+
+    private K key;
 
     private V value;
 
     private Color color;
 
-    private RBNode<V> parent;
+    private RBNode<K, V> parent;
 
-    private RBNode<V> leftChild;
+    private RBNode<K, V> leftChild;
 
-    private RBNode<V> rightChild;
+    private RBNode<K, V> rightChild;
 
     public RBNode() {
     }
 
-    public RBNode(V value, Color color) {
+    public RBNode(K key, V value, Color color) {
+        this.key = key;
         this.value = value;
         this.color = color;
+    }
+
+    public K getKey() {
+        return key;
+    }
+
+    public void setKey(K key) {
+        this.key = key;
     }
 
     public V getValue() {
@@ -41,27 +52,27 @@ public class RBNode<V> {
         this.color = color;
     }
 
-    public RBNode<V> getParent() {
+    public RBNode<K, V> getParent() {
         return parent;
     }
 
-    public void setParent(RBNode<V> parent) {
+    public void setParent(RBNode<K, V> parent) {
         this.parent = parent;
     }
 
-    public RBNode<V> getLeftChild() {
+    public RBNode<K, V> getLeftChild() {
         return leftChild;
     }
 
-    public void setLeftChild(RBNode<V> leftChild) {
+    public void setLeftChild(RBNode<K, V> leftChild) {
         this.leftChild = leftChild;
     }
 
-    public RBNode<V> getRightChild() {
+    public RBNode<K, V> getRightChild() {
         return rightChild;
     }
 
-    public void setRightChild(RBNode<V> rightChild) {
+    public void setRightChild(RBNode<K, V> rightChild) {
         this.rightChild = rightChild;
     }
 
@@ -69,16 +80,14 @@ public class RBNode<V> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RBNode<?> rbNode = (RBNode<?>) o;
-        return value.equals(rbNode.value) &&
-                color == rbNode.color &&
-                parent.equals(rbNode.parent) &&
-                leftChild.equals(rbNode.leftChild) &&
-                rightChild.equals(rbNode.rightChild);
+        RBNode<?, ?> rbNode = (RBNode<?, ?>) o;
+        return Objects.equals(key, rbNode.key) &&
+                Objects.equals(value, rbNode.value) &&
+                color == rbNode.color;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value, color, parent, leftChild, rightChild);
+        return Objects.hash(key, value, color);
     }
 }

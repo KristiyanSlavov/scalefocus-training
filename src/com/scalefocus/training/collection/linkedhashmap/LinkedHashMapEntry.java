@@ -5,31 +5,21 @@ import java.util.Objects;
 /**
  * @author Kristiyan SLavov
  */
-public class LinkedHashMapEntry<K,V> {
+public class LinkedHashMapEntry<K, V> {
+
     private K key;
+
     private V value;
-    private LinkedHashMapEntry<K,V> next, before, after;
+
+    private LinkedHashMapEntry<K, V> next;
+
+    private LinkedHashMapEntry<K, V> before;
+
+    private LinkedHashMapEntry<K, V> after;
 
     public LinkedHashMapEntry(K key, V value) {
         this.key = key;
         this.value = value;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LinkedHashMapEntry<?, ?> that = (LinkedHashMapEntry<?, ?>) o;
-        return Objects.equals(key, that.key) &&
-                Objects.equals(value, that.value) &&
-                Objects.equals(next, that.next) &&
-                Objects.equals(before, that.before) &&
-                Objects.equals(after, that.after);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(key, value, next, before, after);
     }
 
     public K getKey() {
@@ -70,5 +60,22 @@ public class LinkedHashMapEntry<K,V> {
 
     public void setAfter(LinkedHashMapEntry<K, V> after) {
         this.after = after;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LinkedHashMapEntry<?, ?> that = (LinkedHashMapEntry<?, ?>) o;
+        return Objects.equals(key, that.key) &&
+                Objects.equals(value, that.value) &&
+                Objects.equals(next, that.next) &&
+                Objects.equals(before, that.before) &&
+                Objects.equals(after, that.after);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(key, value, next, before, after);
     }
 }

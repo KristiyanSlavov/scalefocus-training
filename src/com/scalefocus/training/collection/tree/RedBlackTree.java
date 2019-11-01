@@ -3,27 +3,32 @@ package com.scalefocus.training.collection.tree;
 import com.scalefocus.training.collection.common.Color;
 import com.scalefocus.training.collection.common.RBNode;
 
-import java.util.NoSuchElementException;
 
 /**
  * @author Kristiyan SLavov
  */
-public class RedBlackTree<V extends Comparable<V>> {
+public class RedBlackTree<K extends Comparable<K>, V extends Comparable<V>> {
 
-    private RBNode<V> root;
+    private RBNode<K, V> root;
 
-    private RBNode<V> TNULL;
+    private RBNode<K, V> TNULL;
 
-    private RBNode<V> last;
+    private RBNode<K, V> last;
 
-    private RBNode<V> first;
+    private RBNode<K, V> first;
 
     private int size = 0;
 
     public RedBlackTree() {
         TNULL = new RBNode<>();
         TNULL.setColor(Color.BLACK);
+        first = new RBNode<>();
+        last = new RBNode<>();
         root = TNULL;
+    }
+
+    public RBNode<K, V> getRoot() {
+        return this.root;
     }
 
     /**
@@ -34,35 +39,39 @@ public class RedBlackTree<V extends Comparable<V>> {
      *
      * @param value - the value of the new node
      */
-    public void insert(V value) {
-        RBNode<V> node = new RBNode<>(value, Color.RED);
+    public void insert(K key, V value) {
+        RBNode<K, V> node = new RBNode<>(key, value, Color.RED);
+
         node.setParent(null);
         node.setLeftChild(TNULL);
         node.setRightChild(TNULL);
 
-        RBNode<V> y = null;
-        RBNode<V> x = this.root;
+        RBNode<K, V> y = null;
+        RBNode<K, V> x = this.root;
         while (x != TNULL) {
             y = x;
-            if(node.getValue().compareTo(x.getValue()) == 0) {
+            //check if key already exists
+            if (node.getKey().compareTo(x.getKey()) == 0) {
+                x.setValue(node.getValue());
                 return;
             }
-            if (node.getValue().compareTo(x.getValue()) < 0) {
+            if (node.getKey().compareTo(x.getKey()) < 0) {
                 x = x.getLeftChild();
             } else {
                 x = x.getRightChild();
             }
         }
+
         node.setParent(y);
         if (y == null) {
             root = node;
-            first = node;
-        } else if (node.getValue().compareTo(y.getValue()) < 0) {
+            this.first = node;
+        } else if (node.getKey().compareTo(y.getKey()) < 0) {
             y.setLeftChild(node);
         } else {
             y.setRightChild(node);
         }
-        last = node;
+        this.last = node;
         size++;
         if (node.getParent() == null) {
             node.setColor(Color.BLACK);
@@ -85,8 +94,8 @@ public class RedBlackTree<V extends Comparable<V>> {
      *
      * @param newNode - the new added node
      */
-    private void fixInsert(RBNode<V> newNode) {
-        RBNode<V> uncle;
+    private void fixInsert(RBNode<K, V> newNode) {
+        RBNode<K, V> uncle;
         while (Color.RED.equals(newNode.getParent().getColor())) {
             if (newNode.getParent().equals(newNode.getParent().getParent().getRightChild())) {
                 uncle = newNode.getParent().getParent().getLeftChild();
@@ -141,8 +150,8 @@ public class RedBlackTree<V extends Comparable<V>> {
      *
      * @param node - the node to be left-rotate
      */
-    private void leftRotate(RBNode<V> node) {
-        RBNode<V> y = node.getRightChild();
+    private void leftRotate(RBNode<K, V> node) {
+        RBNode<K, V> y = node.getRightChild();
         node.setRightChild(y.getLeftChild());
 
         if (y.getLeftChild().equals(TNULL)) {
@@ -166,8 +175,8 @@ public class RedBlackTree<V extends Comparable<V>> {
      *
      * @param node - the node to be right-rotate
      */
-    private void rightRotate(RBNode<V> node) {
-        RBNode<V> y = node.getLeftChild();
+    private void rightRotate(RBNode<K, V> node) {
+        RBNode<K, V> y = node.getLeftChild();
         node.setLeftChild(y.getRightChild());
         if (y.getRightChild() != TNULL) {
             y.getRightChild().setParent(node);
@@ -189,10 +198,10 @@ public class RedBlackTree<V extends Comparable<V>> {
      * This method deletes a node from the RedBlack tree and then
      * rebalanced the tree using deleteNodeHelper method.
      *
-     * @param value - the value of the node to be deleted
+     * @param key - the value of the node to be deleted
      */
-    public void delete(V value) {
-        deleteNodeHelper(this.root, value);
+    public RBNode delete(K key) {
+        return deleteNodeHelper(this.root, key);
     }
 
     /**
@@ -200,20 +209,20 @@ public class RedBlackTree<V extends Comparable<V>> {
      * TRANSPLANT algorithm to replace the node to be deleted. After deletion,
      * the method use a fixDelete method to rebalanced the RedBlack tree.
      *
-     * @param node  - the root of the RedBlack tree
-     * @param value - the value of the node to be deleted
+     * @param node - the root of the RedBlack tree
+     * @param key  - the value of the node to be deleted
      */
-    private void deleteNodeHelper(RBNode<V> node, V value) {
+    private RBNode<K, V> deleteNodeHelper(RBNode<K, V> node, K key) {
         //find the node, containing that value
-        RBNode<V> deletedNode = TNULL;
-        RBNode<V> x, y;
+        RBNode<K, V> deletedNode = TNULL;
+        RBNode<K, V> x, y;
 
         while (!node.equals(TNULL)) {
-            if (value.equals(node.getValue())) {
+            if (key.equals(node.getKey())) {
                 deletedNode = node;
             }
 
-            if (value.compareTo(node.getValue()) >= 0) {
+            if (key.compareTo(node.getKey()) >= 0) {
                 node = node.getRightChild();
             } else {
                 node = node.getLeftChild();
@@ -222,7 +231,7 @@ public class RedBlackTree<V extends Comparable<V>> {
 
         //couldn't find node with this value in the tree
         if (deletedNode.equals(TNULL)) {
-            return;
+            return null;
         }
         y = deletedNode;
         Color yOriginalColor = y.getColor();
@@ -259,6 +268,7 @@ public class RedBlackTree<V extends Comparable<V>> {
         if (Color.BLACK.equals(yOriginalColor)) {
             fixDelete(x);
         }
+        return deletedNode;
     }
 
     /**
@@ -272,8 +282,8 @@ public class RedBlackTree<V extends Comparable<V>> {
      *
      * @param node - the deleted node
      */
-    private void fixDelete(RBNode<V> node) {
-        RBNode<V> sibling = null;
+    private void fixDelete(RBNode<K, V> node) {
+        RBNode<K, V> sibling;
 
         while (!root.equals(node) && Color.BLACK.equals(node.getColor())) {
             if (node.equals(node.getParent().getLeftChild())) {
@@ -349,7 +359,7 @@ public class RedBlackTree<V extends Comparable<V>> {
      * @param u - the node to be transplant with the node "v"
      * @param v - the node with which the "u" node will be transplant
      */
-    private void rbTransplant(RBNode<V> u, RBNode<V> v) {
+    private void rbTransplant(RBNode<K, V> u, RBNode<K, V> v) {
         if (u.getParent() == null) {
             this.root = v;
         } else if (u.equals(u.getParent().getLeftChild())) {
@@ -361,12 +371,43 @@ public class RedBlackTree<V extends Comparable<V>> {
     }
 
     /**
-     * This method finds the smallest node in the tree.
+     * This method returns the least node in the tree.
+     *
+     * @return - the least node or null if the tree is empty.
+     */
+    public RBNode<K, V> minimumEntry() {
+        return minimum(this.root);
+    }
+
+    /**
+     * This method returns the greatest node in the tree.
+     *
+     * @return - the greatest node or null if the tree is empty.
+     */
+    public RBNode<K, V> maximumEntry() {
+        return maximum(this.root);
+    }
+
+    /**
+     * This method finds the greatest node in the tree/subtree.
      *
      * @param node - the node from which the search will begin.
-     * @return - the smallest node
+     * @return - the greatest node
      */
-    private RBNode<V> minimum(RBNode<V> node) {
+    private RBNode<K, V> maximum(RBNode<K, V> node) {
+        while (!node.getRightChild().equals(TNULL)) {
+            node = node.getRightChild();
+        }
+        return node;
+    }
+
+    /**
+     * This method finds the least node in the tree/subtree.
+     *
+     * @param node - the node from which the search will begin.
+     * @return - the least node
+     */
+    private RBNode<K, V> minimum(RBNode<K, V> node) {
         while (!node.getLeftChild().equals(TNULL)) {
             node = node.getLeftChild();
         }
@@ -374,13 +415,15 @@ public class RedBlackTree<V extends Comparable<V>> {
     }
 
     /**
-     * This method returns true if node with the specified value is contained in the tree
-     * and false if it is not contained.
+     * This method returns true if the tree contains a node with the specified value
+     * or false if it is not contained.
+     *
      * @param value - the value of the searched node.
-     * @return
+     * @return - true if the tree contains a node with the specified value
+     * or false if the tree does not contains the node
      */
-    public boolean contains(V value) {
-        RBNode<V> rootNode = this.root;
+    public boolean containsValue(V value) {
+        RBNode<K, V> rootNode = this.root;
 
         while (!rootNode.equals(TNULL)) {
             if (value.equals(rootNode.getValue())) {
@@ -395,20 +438,64 @@ public class RedBlackTree<V extends Comparable<V>> {
         return false;
     }
 
+    /**
+     * This method returns true if the tree contains a node with the specified key
+     * or false if a node with the specified key is not contained into the tree.
+     *
+     * @param key - the specified key of a node
+     * @return - true if tree contains a node with the specified key or
+     * false if the tree does not contains the node.
+     */
+    public boolean containsKey(K key) {
+        RBNode<K, V> rootNode = this.root;
+
+        while (!rootNode.equals(TNULL)) {
+            if (key.equals(rootNode.getKey())) {
+                return true;
+            }
+            if (key.compareTo(rootNode.getKey()) >= 0) {
+                rootNode = rootNode.getRightChild();
+            } else {
+                rootNode = rootNode.getLeftChild();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * This method returns the number of key-value mappings in this tree.
+     *
+     * @return - number of key-value mappings
+     */
     public int size() {
         return size;
     }
 
+    /**
+     * This method return true if the tree contains no key-value mappings.
+     *
+     * @return - true if the tree does not contains any elements or false if it does.
+     */
     public boolean isEmpty() {
         return root.equals(TNULL);
     }
 
-    public RBNode<V> first() {
-        return first;
+    /**
+     * This method returns the first added element to the tree.
+     *
+     * @return - the first added element or null if the tree does not contain any elements.
+     */
+    public RBNode<K, V> first() {
+        return this.first;
     }
 
-    public RBNode<V> last() {
-        return last;
+    /**
+     * This method returns the last added element to the tree.
+     *
+     * @return - the last added element or null if the tree does not contain any elements.
+     */
+    public RBNode<K, V> last() {
+        return this.last;
     }
 
     /**
@@ -421,7 +508,7 @@ public class RedBlackTree<V extends Comparable<V>> {
     /**
      * This method prints all the elements from the RedBlack tree.
      */
-    private void printHelper(RBNode<V> root, String indent, boolean last) {
+    private void printHelper(RBNode<K, V> root, String indent, boolean last) {
         // print the tree structure on the screen
         if (root != TNULL) {
             System.out.print(indent);
@@ -434,9 +521,9 @@ public class RedBlackTree<V extends Comparable<V>> {
             }
 
             Color sColor = root.getColor();
-            System.out.println(root.getValue() + "(" + sColor + ")");
-            printHelper((RBNode<V>) root.getLeftChild(), indent, false);
-            printHelper((RBNode<V>) root.getRightChild(), indent, true);
+            System.out.println(root.getKey() + "(" + sColor + ")");
+            printHelper(root.getLeftChild(), indent, false);
+            printHelper(root.getRightChild(), indent, true);
         }
     }
 }

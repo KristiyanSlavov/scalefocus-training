@@ -18,21 +18,6 @@ public class HashMapEntry<K, V> {
         this.value = value;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        HashMapEntry<?, ?> that = (HashMapEntry<?, ?>) o;
-        return Objects.equals(key, that.key) &&
-                Objects.equals(value, that.value) &&
-                Objects.equals(next, that.next);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(key, value, next);
-    }
-
     public K getKey() {
         return key;
     }
@@ -57,4 +42,18 @@ public class HashMapEntry<K, V> {
         this.next = next;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HashMapEntry<?, ?> that = (HashMapEntry<?, ?>) o;
+        return Objects.equals(key, that.key) &&
+                Objects.equals(value, that.value) &&
+                Objects.equals(next, that.next);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(key, value, next);
+    }
 }

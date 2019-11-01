@@ -1,27 +1,18 @@
 package com.scalefocus.training;
 
-import com.scalefocus.training.collection.array.MyArrayList;
-import com.scalefocus.training.collection.tree.BinarySearchTree;
-import com.scalefocus.training.collection.tree.BinaryTree;
-import com.scalefocus.training.collection.tree.RedBlackTree;
+import com.scalefocus.training.collection.heap.Heap;
 
-import java.util.TreeSet;
-import java.util.stream.IntStream;
+import java.util.PriorityQueue;
+
 
 public class TrainingApp {
 
     public static void main(String[] args) {
-        RedBlackTree<Integer> redBlackTree = new RedBlackTree<>();
-        redBlackTree.insert(5);
-        redBlackTree.insert(15);
-        redBlackTree.insert(25);
-        redBlackTree.insert(35);
-        redBlackTree.insert(45);
-        redBlackTree.insert(55);
-        redBlackTree.insert(65);
-        redBlackTree.insert(75);
-        redBlackTree.delete(35);
-        redBlackTree.print();
-
+        Heap heap = new Heap(5);
+        heap.insert(2);
+        heap.insert(29);
+        heap.insert(7);
+        heap.insert(11);
+        heap.insert(17);
     }
 }

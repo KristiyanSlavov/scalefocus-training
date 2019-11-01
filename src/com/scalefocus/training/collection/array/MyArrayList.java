@@ -2,9 +2,6 @@ package com.scalefocus.training.collection.array;
 
 import com.scalefocus.training.collection.common.MyList;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-
 public class MyArrayList<T> implements MyList<T> {
 
     private Object[] myStore;
@@ -14,6 +11,8 @@ public class MyArrayList<T> implements MyList<T> {
     private static final int MY_STORE_INITIAL_SIZE = 10;
 
     private static final double LOAD_FACTOR = 0.75;
+
+    private static final double DECREASE_FACTOR = 0.45;
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     public MyArrayList() {
@@ -44,7 +43,7 @@ public class MyArrayList<T> implements MyList<T> {
     @Override
     public void add(T data) {
         myStore[myStoreSize++] = data;
-        if (checkMyStoreCapacity()) {
+        if (increaseCheck()) {
             increaseMyStoreCapacity();
         }
     }
@@ -57,7 +56,7 @@ public class MyArrayList<T> implements MyList<T> {
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public void insertAtStart(T data) {
-        if (checkMyStoreCapacity()) {
+        if (increaseCheck()) {
             increaseMyStoreCapacity();
         }
         T[] result = (T[]) new Object[myStore.length];
@@ -90,7 +89,7 @@ public class MyArrayList<T> implements MyList<T> {
             } else if (index == myStoreSize) {
                 add(data);
             } else {
-                if (checkMyStoreCapacity()) {
+                if (increaseCheck()) {
                     increaseMyStoreCapacity();
                 }
                 T[] result = (T[]) new Object[myStore.length];
@@ -120,7 +119,7 @@ public class MyArrayList<T> implements MyList<T> {
      * @return the element that had been removed
      */
     public T remove(int index) {
-        if (index < myStoreSize - 1) {
+        if (index < myStoreSize) {
             T target = (T) myStore[index];
             int temp = index;
 
@@ -129,8 +128,10 @@ public class MyArrayList<T> implements MyList<T> {
                 myStore[temp + 1] = null;
                 temp++;
             }
-
             myStoreSize--;
+            if (decreaseCheck()) {
+                decreaseMyStoreCapacity();
+            }
             return target;
         } else {
             throw new ArrayIndexOutOfBoundsException();
@@ -141,8 +142,7 @@ public class MyArrayList<T> implements MyList<T> {
      * This method increases the array's capacity by two.
      */
     private void increaseMyStoreCapacity() {
-        //myStore = Arrays.copyOf(myStore, myStore.length * 2);
-        Object[] helper = new Object[myStore.length*2];
+        Object[] helper = new Object[myStore.length * 2];
         for (int i = 0; i < myStore.length; i++) {
             helper[i] = myStore[i];
         }
@@ -150,12 +150,32 @@ public class MyArrayList<T> implements MyList<T> {
     }
 
     /**
-     * This method checks the array's capacity.
-     *
-     * @return true if the array's capacity needs to be increased and false if not needed.
+     * This method decreases the array's capacity by two
      */
-    private boolean checkMyStoreCapacity() {
+    private void decreaseMyStoreCapacity() {
+        Object[] helper = new Object[myStore.length / 2];
+        for (int i = 0; i < helper.length; i++) {
+            helper[i] = myStore[i];
+        }
+        myStore = helper;
+    }
+
+    /**
+     * This method checks if the array's capacity has to be increase.
+     *
+     * @return true if the array's capacity has to be increase and false if it's not needed.
+     */
+    private boolean increaseCheck() {
         return (double) (myStoreSize) / (double) (myStore.length) > LOAD_FACTOR;
+    }
+
+    /**
+     * This method checks if the array's capacity has to be decrease.
+     *
+     * @return true if the array's capacity has to be decrease and false if it's not needed.
+     */
+    private boolean decreaseCheck() {
+        return myStore.length > 5 && (double) (myStoreSize) / (double) (myStore.length) <= DECREASE_FACTOR;
     }
 
     /**
