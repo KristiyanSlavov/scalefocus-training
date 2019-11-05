@@ -66,7 +66,6 @@ public class Heap {
         }
     }
 
-
     public void minHeapify(int[] array, int index, int length) {
         heapify(array, index, length, MIN);
     }

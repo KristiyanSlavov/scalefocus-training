@@ -81,7 +81,7 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
      * or null if the map doesn't contain the specified key
      */
     public V get(K key) {
-        if(key == null) {
+        if (key == null) {
             return getNullKeyEntry();
         }
         int index = getBucketIndex(key);
@@ -105,7 +105,7 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
      */
     public V remove(K key) {
         V value;
-        if(key == null) {
+        if (key == null) {
             return removeNullKeyEntry();
         }
         int index = getBucketIndex(key);
@@ -238,12 +238,12 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
         size++;
     }
 
-    private V getNullKeyEntry(){
-        HashMapEntry<K,V> existingEntry = buckets[0];
+    private V getNullKeyEntry() {
+        HashMapEntry<K, V> existingEntry = buckets[0];
         if (existingEntry.getKey() == null) {
             return existingEntry.getValue();
         }
-        while(existingEntry.getNext() != null) {
+        while (existingEntry.getNext() != null) {
             if (existingEntry.getNext().getKey() == null) {
                 return existingEntry.getNext().getValue();
             }
@@ -263,8 +263,8 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
             --size;
             return value;
         }
-        while(head.getNext() != null) {
-            if(head.getNext().getKey() == null) {
+        while (head.getNext() != null) {
+            if (head.getNext().getKey() == null) {
                 value = head.getNext().getValue();
                 head.setNext(head.getNext().getNext());
                 --size;
