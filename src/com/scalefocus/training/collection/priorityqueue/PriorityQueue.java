@@ -127,7 +127,7 @@ public class PriorityQueue<T extends Comparable> implements MyQueue<T> {
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public T peek() {
-        return (T) heap[0];
+        return size == 0 ? null : (T)heap[0];
     }
 
     /**
