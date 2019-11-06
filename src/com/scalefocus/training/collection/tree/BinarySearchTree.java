@@ -28,7 +28,6 @@ public class BinarySearchTree<V extends Comparable<V>> {
     public TreeNode<V> add(V value) {
         TreeNode<V> newNode = new TreeNode<>(value);
 
-
         if (root == null) {
             root = newNode;
 

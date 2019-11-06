@@ -13,6 +13,8 @@ public class TreeNode<V> {
 
     private TreeNode<V> rightChild;
 
+    private TreeNode<V> parent;
+
     public TreeNode() {}
 
     public TreeNode(V value) {
@@ -43,6 +45,18 @@ public class TreeNode<V> {
         this.rightChild = rightChild;
     }
 
+    public void setValue(V value) {
+        this.value = value;
+    }
+
+    public TreeNode<V> getParent() {
+        return parent;
+    }
+
+    public void setParent(TreeNode<V> parent) {
+        this.parent = parent;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -53,8 +67,9 @@ public class TreeNode<V> {
                 rightChild.equals(treeNode.rightChild);
     }
 
+
     @Override
     public int hashCode() {
-        return Objects.hash(value, leftChild, rightChild);
+        return Objects.hash(value, leftChild, rightChild, parent);
     }
 }
