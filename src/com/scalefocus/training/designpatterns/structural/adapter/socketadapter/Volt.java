@@ -1,7 +1,9 @@
-package com.scalefocus.training.designpatterns.structural.adapter;
+package com.scalefocus.training.designpatterns.structural.adapter.socketadapter;
 
 /**
  * @author Kristiyan SLavov
+ *
+ * A class that is a measure of volts.
  */
 public class Volt {
 

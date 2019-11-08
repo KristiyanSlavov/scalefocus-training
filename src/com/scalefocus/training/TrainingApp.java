@@ -1,16 +1,15 @@
 package com.scalefocus.training;
 
-import com.scalefocus.training.designpatterns.structural.adapter.Adapter;
-import com.scalefocus.training.designpatterns.structural.adapter.SocketAdapter;
-import com.scalefocus.training.designpatterns.structural.adapter.Volt;
+import com.scalefocus.training.designpatterns.structural.decorator.pizza.Mozzarella;
+import com.scalefocus.training.designpatterns.structural.decorator.pizza.Pizza;
+import com.scalefocus.training.designpatterns.structural.decorator.pizza.PlainPizza;
+import com.scalefocus.training.designpatterns.structural.decorator.pizza.TomatoSauce;
 
 public class TrainingApp {
 
     public static void main(String[] args) {
-        SocketAdapter socketAdapter = new Adapter();
-        Volt v3 = socketAdapter.get3Volts();
-        Volt v12 = socketAdapter.get12Volts();
-        Volt v120 = socketAdapter.get120Volts();
-
+        Pizza basicPizza = new TomatoSauce(new Mozzarella(new PlainPizza()));
+        Pizza basic2 = new Mozzarella(new PlainPizza());
+        System.out.println(basic2.getDescription());
     }
 }

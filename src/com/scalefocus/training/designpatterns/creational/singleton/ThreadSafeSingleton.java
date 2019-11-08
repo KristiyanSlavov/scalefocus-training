@@ -23,7 +23,7 @@ public class ThreadSafeSingleton {
     }
 
     /**
-     * This method used double checked locking for creating a instance of the class.
+     * This method used "double checked locking" for creating a instance of the class.
      * In this approach, the synchronized block is used inside the if condition
      * with an additional check to ensure that only one instance of a class is created.
      * It has better performance.
