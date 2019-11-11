@@ -1,18 +1,16 @@
 package com.scalefocus.training;
 
-import com.scalefocus.training.designpatterns.structural.decorator.ball.Ball;
-import com.scalefocus.training.designpatterns.structural.decorator.ball.BasicBall;
-import com.scalefocus.training.designpatterns.structural.decorator.ball.PurpleBall;
-import com.scalefocus.training.designpatterns.structural.decorator.ball.WhiteBall;
+import com.scalefocus.training.designpatterns.structural.facade.BankAccountFacade;
 
 public class TrainingApp {
 
     public static void main(String[] args) {
 
-        Ball basicBall = new BasicBall();
-        Ball whiteBall = new WhiteBall(basicBall);
-        whiteBall.color();
-        Ball purpleBall = new PurpleBall(basicBall);
-        purpleBall.color();
+        BankAccountFacade bankAccount = new BankAccountFacade(1122334455, 1234);
+        bankAccount.withdrawCash(50);
+        bankAccount.withdrawCash(950);
+        bankAccount.depositCash(1000);
+        bankAccount.withdrawCash(1000);
+        bankAccount.withdrawCash(1);
     }
 }
