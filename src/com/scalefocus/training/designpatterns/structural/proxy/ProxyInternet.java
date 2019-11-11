@@ -12,9 +12,7 @@ public class ProxyInternet implements Internet{
 
     private static List<String> bannedSites;
 
-    /**
-     * Restricted sites
-     */
+    // Restricted sites
     static {
         bannedSites = new ArrayList<>();
         bannedSites.add("qwe.com");
@@ -26,14 +24,14 @@ public class ProxyInternet implements Internet{
      * This method checks the host, if it is not part of restricted site list,
      * then it connects.
      *
-     * @param serverhost - the host you are trying to connect
+     * @param serverHost - the host you are trying to connect
      * @throws Exception - if serverhost is part of restricted sites
      */
     @Override
-    public void connectTo(String serverhost) throws Exception{
-        if(bannedSites.contains(serverhost.toLowerCase())) {
+    public void connectTo(String serverHost) throws Exception{
+        if(bannedSites.contains(serverHost.toLowerCase())) {
             throw new Exception("Access Denied!");
         }
-        internet.connectTo(serverhost);
+        internet.connectTo(serverHost);
     }
 }

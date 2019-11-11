@@ -5,5 +5,5 @@ package com.scalefocus.training.designpatterns.structural.proxy;
  */
 public interface Internet {
 
-    void connectTo(String serverhost) throws Exception;
+    void connectTo(String serverHost) throws Exception;
 }

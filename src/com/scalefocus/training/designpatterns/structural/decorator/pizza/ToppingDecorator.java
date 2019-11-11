@@ -3,11 +3,11 @@ package com.scalefocus.training.designpatterns.structural.decorator.pizza;
 /**
  * @author Kristiyan SLavov
  */
-public abstract class TopingDecorator implements Pizza{
+public abstract class ToppingDecorator implements Pizza{
 
     protected Pizza tempPizza;
 
-    public TopingDecorator(Pizza newPizza) {
+    public ToppingDecorator(Pizza newPizza) {
         this.tempPizza = newPizza;
     }
 

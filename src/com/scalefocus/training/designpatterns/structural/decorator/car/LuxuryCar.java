@@ -11,6 +11,9 @@ public class LuxuryCar extends CarDecorator {
         super(c);
     }
 
+    /**
+     * Concrete implementation of assemble method that adds a features of a luxury car.
+     */
     public void assemble() {
         super.assemble();
         System.out.print(" Adding features of Luxury Car.");

@@ -3,7 +3,7 @@ package com.scalefocus.training.designpatterns.structural.decorator.pizza;
 /**
  * @author Kristiyan SLavov
  */
-public class TomatoSauce extends TopingDecorator{
+public class TomatoSauce extends ToppingDecorator {
 
     public TomatoSauce(Pizza newPizza) {
         super(newPizza);
