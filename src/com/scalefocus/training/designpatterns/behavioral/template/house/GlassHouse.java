@@ -1,4 +1,4 @@
-package com.scalefocus.training.designpatterns.behavioral.house;
+package com.scalefocus.training.designpatterns.behavioral.template.house;
 
 /**
  * @author Kristiyan SLavov

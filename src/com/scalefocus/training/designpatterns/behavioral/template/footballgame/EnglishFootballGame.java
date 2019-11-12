@@ -1,4 +1,4 @@
-package com.scalefocus.training.designpatterns.behavioral.footballgame;
+package com.scalefocus.training.designpatterns.behavioral.template.footballgame;
 
 /**
  * @author Kristiyan SLavov
