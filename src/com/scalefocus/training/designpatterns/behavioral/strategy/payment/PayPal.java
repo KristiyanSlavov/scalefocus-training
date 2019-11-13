@@ -17,6 +17,10 @@ public class PayPal implements PaymentStrategy {
         this.password = password;
     }
 
+    /**
+     * Concrete implementation of the pay method that use PayPal strategy to pay the amount.
+     * @param amount - the amount to be paid
+     */
     @Override
     public void pay(double amount) {
         System.out.println(amount + " paid using PayPal.");

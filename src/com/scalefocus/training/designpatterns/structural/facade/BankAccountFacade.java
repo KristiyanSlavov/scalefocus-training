@@ -2,7 +2,7 @@ package com.scalefocus.training.designpatterns.structural.facade;
 
 /**
  * @author Kristiyan SLavov
- *
+ * <p>
  * The bank account facade class.
  * This is an implementation of the Facade Design Pattern.
  * It combines the functionality of the AccountNumberCheck, SecurityCodeCheck and FundsCheck
@@ -11,23 +11,23 @@ package com.scalefocus.training.designpatterns.structural.facade;
  */
 public class BankAccountFacade {
 
-    private int accountNumber;
+    private final int accountNumber;
 
-    private int securityCode;
+    private final int securityCode;
 
-    private AccountNumberCheck accountNumberChecker;
+    private final AccountNumberService accountNumberServiceChecker;
 
-    private SecurityCodeCheck securityCodeChecker;
+    private final SecurityCodeService securityCodeChecker;
 
-    private FundsCheck fundsChecker;
+    private final FundsService fundsServiceChecker;
 
-    public BankAccountFacade(int accNumber, int secCode){
-        this.accountNumber = accNumber;
-        this.securityCode = secCode;
+    public BankAccountFacade(int accNumber, int secCode) {
+        accountNumber = accNumber;
+        securityCode = secCode;
 
-        accountNumberChecker = new AccountNumberCheck();
-        securityCodeChecker = new SecurityCodeCheck();
-        fundsChecker = new FundsCheck();
+        accountNumberServiceChecker = new AccountNumberService();
+        securityCodeChecker = new SecurityCodeService();
+        fundsServiceChecker = new FundsService();
     }
 
     /**
@@ -55,10 +55,9 @@ public class BankAccountFacade {
      * @param cash - the cash to be withdrawn from the account
      */
     public void withdrawCash(double cash) {
-        if(isAccountValid() &&
-        fundsChecker.haveEnoughMoney(cash)) {
+        if (isAccountValid() && fundsServiceChecker.isCashAvailable(cash)) {
             System.out.println("Transaction complete!");
-            fundsChecker.decreaseCash(cash);
+            fundsServiceChecker.decreaseCash(cash);
         } else {
             System.out.println("Transaction failed!");
         }
@@ -71,7 +70,7 @@ public class BankAccountFacade {
      */
     public void depositCash(double cash) {
         if (isAccountValid()) {
-            fundsChecker.makeDeposit(cash);
+            fundsServiceChecker.makeDeposit(cash);
             System.out.println("Transaction complete!");
         } else {
             System.out.println("Transaction false!");
@@ -85,7 +84,7 @@ public class BankAccountFacade {
      * @return - true if the account number and the security code are valid
      */
     private boolean isAccountValid() {
-        return accountNumberChecker.isAccountActive(getAccountNumber()) &&
+        return accountNumberServiceChecker.isActive(getAccountNumber()) &&
                 securityCodeChecker.isSecurityCodeCorrect(getSecurityCode());
     }
 }

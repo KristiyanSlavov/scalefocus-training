@@ -1,7 +1,5 @@
 package com.scalefocus.training.algorithm.recursion;
 
-import com.scalefocus.training.collection.link.MyLinkedList;
-
 import java.util.ArrayList;
 import java.util.List;
 

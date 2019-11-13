@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @author Kristiyan SLavov
  */
-public class ProxyInternet implements Internet{
+public class ProxyInternet implements Internet {
 
     private Internet internet = new RealInternet();
 
@@ -28,8 +28,8 @@ public class ProxyInternet implements Internet{
      * @throws Exception - if serverhost is part of restricted sites
      */
     @Override
-    public void connectTo(String serverHost) throws Exception{
-        if(bannedSites.contains(serverHost.toLowerCase())) {
+    public void connectTo(String serverHost) throws Exception {
+        if (bannedSites.contains(serverHost.toLowerCase())) {
             throw new Exception("Access Denied!");
         }
         internet.connectTo(serverHost);

@@ -7,7 +7,7 @@ package com.scalefocus.training.designpatterns.structural.facade;
  * It provides getAccountNumber method that returns the account number and
  * isAccountActive method that checks if the specified account number is the correct one.
  */
-public class AccountNumberCheck {
+public class AccountNumberService {
 
     private int accountNumber = 1122334455;
 
@@ -26,7 +26,7 @@ public class AccountNumberCheck {
      * @param accountNumber - the account number to be check if it is the correct one
      * @return - true if the specified account number is the correct
      */
-    public boolean isAccountActive(int accountNumber) {
+    public boolean isActive(int accountNumber) {
         return accountNumber == this.accountNumber;
     }
 }

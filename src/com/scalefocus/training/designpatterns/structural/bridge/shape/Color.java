@@ -8,7 +8,7 @@ package com.scalefocus.training.designpatterns.structural.bridge.shape;
  * can be very different.
  * The implementor is an interface or abstract class.
  */
-public abstract class Color {
+public interface Color {
 
-    abstract public void applyColor();
+    void applyColor();
 }

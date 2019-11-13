@@ -23,6 +23,10 @@ public class CreditCard implements PaymentStrategy {
         this.dateOfExpiry = dateOfExpiry;
     }
 
+    /**
+     * Concrete implementation of the pay method that use CreditCard strategy to pay the amount.
+     * @param amount - the amount to be paid
+     */
     @Override
     public void pay(double amount) {
         System.out.println(amount + " paid with credit card.");

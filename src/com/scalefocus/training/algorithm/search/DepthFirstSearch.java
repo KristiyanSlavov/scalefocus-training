@@ -1,8 +1,7 @@
 package com.scalefocus.training.algorithm.search;
 
-import com.scalefocus.training.collection.stack.Stack;
-import com.scalefocus.training.collection.tree.BinarySearchTree;
 import com.scalefocus.training.collection.common.TreeNode;
+import com.scalefocus.training.collection.stack.Stack;
 
 /**
  * @author Kristiyan SLavov
@@ -28,7 +27,6 @@ public class DepthFirstSearch<T extends Comparable<T>> {
      * @param node - the roof node
      */
     public void preOrderTraverse(TreeNode<T> node) {
-        BinarySearchTree<T> binarySearchTree = new BinarySearchTree<T>();
         if (node != null) {
             System.out.println(node.getValue());
             preOrderTraverse(node.getLeftChild());

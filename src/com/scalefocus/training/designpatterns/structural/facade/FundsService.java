@@ -11,16 +11,16 @@ package com.scalefocus.training.designpatterns.structural.facade;
  * and makeDeposit method that uses increaseCash method to increases the cash int the account with
  * the specified cash.
  */
-public class FundsCheck {
+public class FundsService {
 
-    private double cashInAccount = 1000d;
+    private double cashInAccount = 1000.00d;
 
     /**
      * This method returns the available funds from the account.
      *
      * @return - the available funds
      */
-    public double getCashInAccount() {
+    public double getCashIn() {
         return this.cashInAccount;
     }
 
@@ -34,23 +34,14 @@ public class FundsCheck {
     }
 
     /**
-     * This method increases the cash in the account with the specified cash.
-     *
-     * @param cashDeposited - the specified cash with which the account balance will be increased
-     */
-    public void increaseCash(double cashDeposited) {
-        cashInAccount += cashDeposited;
-    }
-
-    /**
      * This method checks if the cash in the account is less than the specified cash.
      *
      * @param cash - the cash to be checked for availability
      *
      * @return - true if the account has less than or equal to the specified cash
      */
-    public boolean haveEnoughMoney(double cash) {
-        return !(cash > cashInAccount);
+    public boolean isCashAvailable(double cash) {
+        return cash <= cashInAccount;
     }
 
     /**
@@ -60,6 +51,6 @@ public class FundsCheck {
      * @param cash - the cash to be deposited into the account
      */
     public void makeDeposit(double cash) {
-        increaseCash(cash);
+        cashInAccount += cash;
     }
 }

@@ -1,15 +1,14 @@
 package com.scalefocus.training.designpatterns.structural.decorator.car;
 
 /**
- * @author Kristiyan SLavov
+ * This is the component interface.
+ * It defines the methods that will be implemented in the component implementations.
  *
- * The Component Interface - it's an interface or abstract class defining the method/s
- * that will be implemented.
+ * @author Kristiyan SLavov
  */
 public interface Car {
 
-    /**
-     * The method that will be implemented by the classes which implements this interface.
-     */
-    void assemble();
+    void getDescription();
+
+    void driveForward();
 }

@@ -1,6 +1,7 @@
 package com.scalefocus.training.collection.priorityqueue;
 
 import com.scalefocus.training.collection.common.MyQueue;
+
 import java.util.Comparator;
 
 /**

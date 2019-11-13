@@ -17,7 +17,7 @@ public class Bike extends Vehicle {
      */
     @Override
     public void manufacture() {
-        System.out.printf("Bike ");
+        System.out.print("Bike");
         workShop1.work();
         workShop2.work();
     }

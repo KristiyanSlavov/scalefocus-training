@@ -1,7 +1,7 @@
 package com.scalefocus.training.algorithm.search;
 
-import com.scalefocus.training.collection.queue.Queue;
 import com.scalefocus.training.collection.common.TreeNode;
+import com.scalefocus.training.collection.queue.Queue;
 
 /**
  * @author Kristiyan SLavov

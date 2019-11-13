@@ -7,7 +7,7 @@ package com.scalefocus.training.designpatterns.structural.facade;
  * It provides getSecurityCode method that returns the security code and
  * isSecurityCodeCorrect method that checks if the specified security code is the correct one.
  */
-public class SecurityCodeCheck {
+public class SecurityCodeService {
 
     private int securityCode = 1234;
 

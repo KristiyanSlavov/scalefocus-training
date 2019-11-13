@@ -6,7 +6,7 @@ package com.scalefocus.training.designpatterns.structural.bridge.shape;
  * The abstraction - core of the bridge design pattern and it defines the crux.
  * Contains a reference/references to the implementor.
  * The abstraction can be an interface or abstract class.
- */
+        */
 public abstract class Shape {
 
     protected Color color;
@@ -15,5 +15,5 @@ public abstract class Shape {
         this.color = c;
     }
 
-    abstract public void applyColor();
+    public abstract void applyColor();
 }

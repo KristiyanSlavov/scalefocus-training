@@ -7,7 +7,8 @@ public class ThreadSafeSingleton {
 
     private static ThreadSafeSingleton instance;
 
-    private ThreadSafeSingleton() {}
+    private ThreadSafeSingleton() {
+    }
 
     /**
      * This method creates a thread-safe instance of the class.
@@ -16,7 +17,7 @@ public class ThreadSafeSingleton {
      * @return - the instance of the class
      */
     public static synchronized ThreadSafeSingleton getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new ThreadSafeSingleton();
         }
         return instance;
@@ -27,15 +28,11 @@ public class ThreadSafeSingleton {
      * In this approach, the synchronized block is used inside the if condition
      * with an additional check to ensure that only one instance of a class is created.
      * It has better performance.
-     *
-     * @return
      */
     public static ThreadSafeSingleton getInstanceUsingDoubleLocking() {
-        if(instance == null) {
+        if (instance == null) {
             synchronized (ThreadSafeSingleton.class) {
-                if(instance == null) {
-                    instance = new ThreadSafeSingleton();
-                }
+                instance = new ThreadSafeSingleton();
             }
         }
         return instance;
