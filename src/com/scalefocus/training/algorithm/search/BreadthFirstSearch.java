@@ -10,7 +10,8 @@ public class BreadthFirstSearch<T> {
 
     /**
      * This method traverses the tree through Breadth-first search algorithm using queue.
-     * @param root - the root of the tree
+     *
+     * @param root  - the root of the tree
      * @param value - the value of the specified node
      * @return - the searched node
      */

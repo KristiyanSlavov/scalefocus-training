@@ -1,17 +1,33 @@
 package com.scalefocus.training;
 
-import com.scalefocus.training.designpatterns.behavioral.command.filesystem.Command;
-import com.scalefocus.training.designpatterns.behavioral.command.filesystem.FileInvoker;
-import com.scalefocus.training.designpatterns.behavioral.command.filesystem.FileSystemReceiver;
-import com.scalefocus.training.designpatterns.behavioral.command.filesystem.OpenFileCommand;
-import com.scalefocus.training.designpatterns.behavioral.command.filesystem.WindowsFileSystemReceiver;
+import com.scalefocus.training.designpatterns.behavioral.interpreter.AndExpression;
+import com.scalefocus.training.designpatterns.behavioral.interpreter.Expression;
+import com.scalefocus.training.designpatterns.behavioral.interpreter.OrExpression;
+import com.scalefocus.training.designpatterns.behavioral.interpreter.TerminalExpression;
 
 public class TrainingApp {
 
+    public static Expression getEnglishClubExpression() {
+        Expression liverpool = new TerminalExpression("Liverpool");
+        Expression chelsea = new TerminalExpression("Chelsea");
+        return new OrExpression(liverpool, chelsea);
+    }
+
+    public static Expression getLiverpoolChampionExpression() {
+        Expression liverpool = new TerminalExpression("Liverpool");
+        Expression champion = new TerminalExpression("Champion");
+        return new AndExpression(liverpool, champion);
+    }
+
     public static void main(String[] args) {
-        FileSystemReceiver windowsSystem = new WindowsFileSystemReceiver();
-        Command openFil = new OpenFileCommand(windowsSystem);
-        FileInvoker invoker = new FileInvoker(openFil);
-        invoker.invoke();
+        Expression isEnglishClub = getEnglishClubExpression();
+        Expression isLiverpoolChampion = getLiverpoolChampionExpression();
+
+        isLiverpoolChampion.interpret("Liverpool Champion");
+
+        System.out.println("Liverpool is English Football Club? " + isEnglishClub.interpret("Liverpool"));
+        System.out.println("Chelsea is English Football Club? " + isEnglishClub.interpret("Chelsea"));
+        System.out.println("Milan is English Football Club? " + isEnglishClub.interpret("Milan"));
+        System.out.println("Liverpool is champion? " + isLiverpoolChampion.interpret("Liverpool Champion"));
     }
 }

@@ -5,7 +5,7 @@ package com.scalefocus.training.designpatterns.structural.bridge.shape;
  *
  * The concrete Implementation 3 - implements the Implementor by providing concrete implementation.
  */
-public class GreenColor extends Color {
+public class GreenColor implements Color {
 
     /**
      * Concrete implementation of applyColor method that applies a green color.

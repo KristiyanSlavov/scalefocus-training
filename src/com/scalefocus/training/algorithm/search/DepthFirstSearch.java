@@ -49,7 +49,8 @@ public class DepthFirstSearch<T extends Comparable<T>> {
 
     /**
      * This method traverses the tree through Depth-first search algorithm using stack.
-     * @param root - the root of the tree
+     *
+     * @param root  - the root of the tree
      * @param value - the value of the specified node
      * @return - the searched node
      */

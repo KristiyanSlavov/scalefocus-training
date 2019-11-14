@@ -8,11 +8,19 @@ package com.scalefocus.training.designpatterns.behavioral.template.house;
  */
 public class WoodenHouse extends HouseTemplate {
 
+    /**
+     * Concrete implementation of buildWalls method which returns information that
+     * the house walls are made of wood.
+     */
     @Override
     public void buildWalls() {
         System.out.println("Building Wooden Walls.");
     }
 
+    /**
+     * Concrete implementation of buildPillars method which returns information that
+     * the house walls are wood of wood.
+     */
     @Override
     public void buildPillars() {
         System.out.println("Building Pillars with Wood coating.");

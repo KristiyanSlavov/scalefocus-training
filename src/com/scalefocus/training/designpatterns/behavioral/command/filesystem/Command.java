@@ -1,9 +1,10 @@
 package com.scalefocus.training.designpatterns.behavioral.command.filesystem;
 
 /**
- * @author Kristiyan SLavov
+ * The Base Command - It provides a method (execute) that will be implemented in a different way
+ * by the classes which will implement this interface..
  *
- * The Base Command - it will be implemented by all
+ * @author Kristiyan SLavov
  */
 public interface Command {
 
