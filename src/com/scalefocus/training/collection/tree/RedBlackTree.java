@@ -74,7 +74,7 @@ public class RedBlackTree<K extends Comparable<K>, V extends Comparable<V>> {
         this.last = node;
         size++;
         if (node.getParent() == null) {
-            node.setColor(Color.BLACK);
+                node.setColor(Color.BLACK);
             return;
         }
         if (node.getParent().getParent() == null) {
