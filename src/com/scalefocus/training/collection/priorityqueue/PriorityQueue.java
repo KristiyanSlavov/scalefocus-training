@@ -41,7 +41,7 @@ public class PriorityQueue<T extends Comparable> implements MyQueue<T> {
         heap[size] = element;
         int index = size;
 
-        while (index >= 1 && comparator.compare(heap[index], heap[(index - 1) / 2]) > 0) {
+        while (index >= 1 && comparator.compare(heap[index], heap[(index - 1) / 2]) < 0) {
             swap(heap, (index - 1) / 2, index);
             index = (index - 1) / 2;
         }
@@ -92,10 +92,10 @@ public class PriorityQueue<T extends Comparable> implements MyQueue<T> {
             leftChild = 2 * i + 1;
             rightChild = leftChild + 1;
 
-            if (leftChild < length && comparator.compare(heap[leftChild], heap[current]) > 0) {
+            if (leftChild < length && comparator.compare(heap[leftChild], heap[current]) < 0) {
                 current = leftChild;
             }
-            if (rightChild < length && comparator.compare(heap[rightChild], heap[current]) > 0) {
+            if (rightChild < length && comparator.compare(heap[rightChild], heap[current]) < 0) {
                 current = rightChild;
             }
             if (current == i) {

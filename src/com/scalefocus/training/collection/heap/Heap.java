@@ -55,7 +55,7 @@ public class Heap {
      * @param factor - the factor that must determine what Heap should be created, MAX or MIN
      */
     private void buildHeap(int[] array, String factor) {
-        int i = (array.length / 2) - 1;
+        int i = (array.length / 2) - 1; //the last non-leaf node
         while (i >= 0) {
             if (factor.equals(MIN)) {
                 minHeapify(array, i, array.length);
