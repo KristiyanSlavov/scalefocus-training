@@ -18,5 +18,7 @@ public class TrainingApp {
         myMap.put("Anthony", "999999999999999");
         myMap.put("Georgi", "10");
         myMap.print();
+
+        System.out.println("Test");
     }
 }
