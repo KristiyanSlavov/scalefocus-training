@@ -5,6 +5,7 @@ package com.scalefocus.training.designpatterns.structural.bridge.footballteam;
  */
 public abstract class FootballCoachDecisions {
 
+    //reference to the implementor
     private FootballTeam theTeam;
 
     public FootballCoachDecisions(FootballTeam newTeam) {

@@ -1,8 +1,5 @@
 package com.scalefocus.training.collection.hashmap;
-
 import com.scalefocus.training.collection.common.MyMap;
-
-
 /**
  * @author Kristiyan SLavov
  */
